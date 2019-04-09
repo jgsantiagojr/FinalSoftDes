@@ -23,9 +23,6 @@ class Avatar(object):
         self.collisions = []
         self.screensize = screensize
 
-        #Center avatar for sidescrolling
-        self.x += 1920
-
     def addinput(self, input):
         '''Takes an input from the controller and adds it to the
         Avatar's list of inputs to handle'''
@@ -118,10 +115,11 @@ class Avatar(object):
             self.y = self.ynew
 
 
-    def update(self, dt, platforms, leftedge):
+    def update(self, dt, platforms):
         """ update the position of the Avatar while taking physics, collisions, and controls into account"""
         self.collisions = []
         self.check_collisions(dt, platforms)
+
         #prevents avatar from leaving bottom of the stage
         if self.y+self.vy*dt > 1080-self.height:
             self.collisions.append('BOTTOM')
@@ -131,7 +129,6 @@ class Avatar(object):
         #update avatar position
         self.x = self.xnew
         self.y = self.ynew
-
 
         self.controls()
         self.resolve_collisions()
@@ -143,10 +140,10 @@ class Avatar(object):
             self.vy += 0.002 * dt
 
         #Prevent avatar from leaving the display area
-        if self.x < leftedge:
-            self.x = leftedge
-        if self.x > leftedge+self.screensize[0]-self.width:
-            self.x = leftedge+self.screensize[0]-self.width
+        if self.x < 0:
+            self.x = 0
+        if self.x > self.screensize[0]-self.width:
+            self.x = self.screensize[0]-self.width
 
 
 

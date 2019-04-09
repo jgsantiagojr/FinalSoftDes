@@ -10,7 +10,7 @@ import pygame, sys
 import avatar, platform, stage
 from model import PlatformerModel
 from view import PyGameWindowView
-from controller.keyboard_controller import PyGameKeyboardController
+from keyboard_controller import PyGameKeyboardController
 
 
 def start_game(size):
