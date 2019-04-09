@@ -118,6 +118,10 @@ class Avatar(object):
     def update(self, dt, platforms):
         """ update the position of the Avatar while taking physics, collisions, and controls into account"""
         self.collisions = []
+
+        if len(self.inputs)<1:
+            dt = dt*0.1 
+
         self.check_collisions(dt, platforms)
 
         #prevents avatar from leaving bottom of the stage
