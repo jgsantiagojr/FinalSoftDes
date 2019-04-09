@@ -25,14 +25,14 @@ class PyGameWindowView(object):
         for platform in self.model.platforms:
             pygame.draw.rect(self.screen,
                              pygame.Color(255, 255, 255),
-                             pygame.Rect(platform.x-self.model.left_edge,
+                             pygame.Rect(platform.x,
                                          platform.y,
                                          platform.width,
                                          platform.height))
         # Draw avatar as red square
         pygame.draw.rect(self.screen,
                          pygame.Color(255, 0, 0),
-                         pygame.Rect(self.model.avatar.x-self.model.left_edge,
+                         pygame.Rect(self.model.avatar.x,
                                      self.model.avatar.y,
                                      self.model.avatar.width,
                                      self.model.avatar.height))
