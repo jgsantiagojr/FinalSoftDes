@@ -115,19 +115,19 @@ class Avatar(object):
             self.y = self.ynew
 
 
-    def update(self, dt, platforms):
+    def update(self, dt, stage):
         """ update the position of the Avatar while taking physics, collisions, and controls into account"""
         self.collisions = []
 
         if len(self.inputs)<1:
-            dt = dt*0.1 
+            dt = dt*0.1
 
-        self.check_collisions(dt, platforms)
+        self.check_collisions(dt, stage.platforms)
 
         #prevents avatar from leaving bottom of the stage
-        if self.y+self.vy*dt > 1080-self.height:
+        if self.y+self.vy*dt > stage.height-self.height:
             self.collisions.append('BOTTOM')
-            self.ynew = 1080-self.height
+            self.ynew = stage.height-self.height
             self.vy = 0
 
         #update avatar position
@@ -146,8 +146,8 @@ class Avatar(object):
         #Prevent avatar from leaving the display area
         if self.x < 0:
             self.x = 0
-        if self.x > self.screensize[0]-self.width:
-            self.x = self.screensize[0]-self.width
+        if self.x > stage.width-self.width:
+            self.x = stage.width-self.width
 
 
 

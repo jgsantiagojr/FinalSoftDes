@@ -4,3 +4,4 @@ class Stage(object):
         self.platforms = platforms
         self.width = size[0]
         self.height = size[1]
+        self.completed = False

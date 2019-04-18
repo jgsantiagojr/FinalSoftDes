@@ -22,18 +22,18 @@ class PyGameWindowView(object):
         self.screen.fill(pygame.Color(0,0,0))
 
         # Draw white platforms in model
-        for platform in self.model.platforms:
+        for platform in self.model.stages[self.model.level].platforms:
             pygame.draw.rect(self.screen,
                              pygame.Color(255, 255, 255),
-                             pygame.Rect(platform.x,
-                                         platform.y,
+                             pygame.Rect(platform.x-                           self.model.topleft[0],
+                                         platform.y- self.model.topleft[1],
                                          platform.width,
                                          platform.height))
         # Draw avatar as red square
         pygame.draw.rect(self.screen,
                          pygame.Color(255, 0, 0),
-                         pygame.Rect(self.model.avatar.x,
-                                     self.model.avatar.y,
+                         pygame.Rect(self.model.avatar.x-                      self.model.topleft[0],
+                                     self.model.avatar.y- self.model.topleft[1],
                                      self.model.avatar.width,
                                      self.model.avatar.height))
         #print(self.model.avatar.x)
