@@ -1,5 +1,5 @@
 # Untitled Video Game
-A Dichomomic Escape Platformer Game with the following features:
+A Dichotomic Escape Platformer Game with the following features:
 - Artful Aesthetic which highlights the plot of the game
 - Smooth engine written by our own Skye Ozga
 - Multiple Playing Styles in the form of multiple combat types available to the user
