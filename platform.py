@@ -11,3 +11,12 @@ class Platform(object):
                                                           self.width,
                                                           self.x,
                                                           self.y)
+'''
+class Platform(Entity):
+    """ Encodes the state of a platform in the game """
+    def __init__(self, x, y, width, height, images):
+        super().__init__(x, y, images, platforms)
+
+        self.height = height
+        self.width = width
+'''

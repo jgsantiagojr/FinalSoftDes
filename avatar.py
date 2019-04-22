@@ -156,3 +156,158 @@ class Avatar(object):
                                                            self.width,
                                                            self.x,
                                                            self.y)
+
+"""
+class Avatar(DynamicEntity):
+    def __init__(self, x, y, images, screensize):
+        ''' Initialize an Avatar with the specified height, width,
+            and position (x,y) '''
+
+        super().__init__(self, x, y, images, [])
+
+        #Sensitivity defines maximim speed for user controls
+        self.sensitivity = 0.33
+        self.inputs = []
+        self.collisions = []
+        self.screensize = screensize
+
+        self.width = self.images[frame].width
+        self.height = self.images[frame].height
+
+    def addinput(self, input):
+        '''Takes an input from the controller and adds it to the
+        Avatar's list of inputs to handle'''
+        if not input in self.inputs:
+            self.inputs.append(input)
+
+    def removeinput(self, input):
+        '''Removes an input that has been handled from the Avatar's input stream'''
+        if input in self.inputs:
+            self.inputs.remove(input)
+
+    def controls(self):
+        '''Handles inputs from the aavatar's list for input controls, accounting for collisions'''
+        if 'LEFT' in self.inputs and 'RIGHT' in self.inputs:
+            self.vx = 0
+        elif 'LEFT' in self.inputs:
+            if not 'LEFT' in self.collisions:
+                self.vx = -self.sensitivity
+            else:
+                self.vy = self.vy * 0.75
+        elif 'RIGHT' in self.inputs:
+            if not 'RIGHT' in self.collisions:
+                self.vx = self.sensitivity
+            else:
+                self.vy = self.vy * 0.75
+        else:
+            self.vx = 0
+        if 'JUMP' in self.inputs:
+            #Normal Jumping
+            if 'BOTTOM' in self.collisions:
+                self.collisions.remove('BOTTOM')
+                self.vy = -1.25
+            #Wall Jumping
+            elif 'LEFT' in self.collisions:
+                self.collisions.remove('LEFT')
+                self.vy = -1.25
+                self.vx = self.sensitivity * 2
+            elif 'RIGHT' in self.collisions:
+                self.collisions.remove('RIGHT')
+                self.vy = -1.25
+                self.vx = -self.sensitivity * 2
+            #Dropping down from ceiling
+            elif 'TOP' in self.collisions:
+                self.collisions.remove('TOP')
+                self.vy+=.002
+
+    def check_collisions(self, dt, platforms):
+        '''Checks for collisions between the avatar and the platforms, and attempts to resolve them'''
+
+        #Update xnew and ynew to predict collisions
+        self.xnew = self.x + self.vx*dt
+        self.ynew = self.y + self.vy*dt
+
+        #Sweep through all platforms
+        for p in platforms:
+            ox = p.x-self.xnew
+            oy = p.y-self.ynew
+            if self.mask.overlap_area(p.mask, (ox, oy))>0:
+                #Stop Motion
+                self.vx = 0
+                self.vy = 0
+
+                dx = self.mask.overlap_area(p.mask,(ox+1,oy)) - self.mask.overlap_area(p.mask,(ox-1,oy))
+                dy = self.mask.overlap_area(p.mask,(ox,oy+1)) - self.mask.overlap_area(p.mask,(ox,oy-1))
+                if dx = 0:
+                    if dy<0:
+                        #Update Collisions
+                        self.collisions.append('BOTTOM')
+                        #Correct ynew to avoid overlap
+                        self.ynew = p.y-self.height
+                    else:
+                        self.collisions.append('TOP')
+                        self.ynew = p.y+p.height
+                elif dy = 0:
+                    if dx<0:
+                        self.collisions.append('RIGHT')
+                        self.xnew = p.x-self.width
+                    else:
+                        self.collisions.append('LEFT')
+                        self.xnew = p.x+p.width
+                else:
+                    if self.y + self.height > p.y and self.vy < 0 or self.y < p.y+p.height and self.vy > 0:
+                        if dx<0:
+                            self.collisions.append('RIGHT')
+                            self.xnew = p.x-self.width
+                        else:
+                            self.collisions.append('LEFT')
+                            self.xnew = p.x+p.width
+                    elif self.x+self.width > p.x and self.vx < 0 or self.x < p.x+p.width and self.vx > 0:
+                        if dy<0:
+                            #Update Collisions
+                            self.collisions.append('BOTTOM')
+                            #Correct ynew to avoid overlap
+                            self.ynew = p.y-self.height
+                        else:
+                            self.collisions.append('TOP')
+                            self.ynew = p.y+p.height
+
+
+    def update(self, dt, stage):
+        ''' update the position of the Avatar while taking physics, collisions, and controls into account'''
+        super().update(dt)
+
+        self.width = self.images[frame].width
+        self.height = self.images[frame].height
+
+        self.collisions = []
+
+        if len(self.inputs)<1:
+            dt = dt*0.1
+
+        self.check_collisions(dt, stage.platforms)
+
+        #prevents avatar from leaving bottom of the stage
+        if self.y+self.vy*dt > stage.height-self.height:
+            self.collisions.append('BOTTOM')
+            self.ynew = stage.height-self.height
+            self.vy = 0
+
+        #update avatar position
+        self.x = self.xnew
+        self.y = self.ynew
+
+        self.controls()
+
+        #Gravity (Slower when haning on wall)
+        if ('LEFT' in self.collisions and 'LEFT' in self.inputs) or ('RIGHT' in self.collisions and 'RIGHT' in self.inputs):
+            self.vy += 0.0002 * dt
+        elif not ('TOP' in self.collisions or 'BOTTOM' in self.collisions):
+            self.vy += 0.002 * dt
+
+        #Prevent avatar from leaving the display area
+        if self.x < 0:
+            self.x = 0
+        if self.x > stage.width-self.width:
+            self.x = stage.width-self.width
+"""
