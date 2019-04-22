@@ -1,6 +1,6 @@
 import pygame
 from math import cos, sin, pi, degrees, radians
-
+from RagnarokEngine3 import RE3 as R
 pygame.init()
 
 #game colors
@@ -58,7 +58,7 @@ class Machine(pygame.sprite.Sprite):
         #restricted game bounds
 
         # win.blit(self.image, self.rect.center)
-        win.blit(self.image, ((width / 2) - 20, (height / 2) - 25))
+        win.blit(self.image, (width / 2 - 20, height / 2 - 25))
 
         if self.rect.left > width:
             self.rect.right = 0
@@ -78,13 +78,13 @@ class Shooterthing(pygame.sprite.Sprite):
 
         self.rect = self.image.get_rect()
 
-        self.rect.center = ((width / 2 + 5), (height / 2) + 50)
+        self.rect.center = (width, height + 50)
 
         self.angle = 1 * radians(pi / 20)
         self.rot_vel = radians(30)
 
-    # def update(self, win):
-    #     win.blit(self.image, (width / 2, height / 2))
+    def update(self, win):
+        win.blit(self.image, (width / 2, height / 2))
 
 class Ball(object):
     def __init__(self, x, y, radius, color, trajectory):
@@ -120,13 +120,14 @@ def rot_center(image, angle):
 #     pygame.display.update()
 
 def main():
+
     #initialized values / runs only once when game is started
 
     all_sprites = pygame.sprite.Group() #group to allow all sprites to be updated
     tennisballs = [] #list to enable multiple tennis balls to exist on screen
 
-    shooter = Shooterthing()
     machine = Machine()
+    shooter = Shooterthing()
     all_sprites.add(shooter)
     all_sprites.add(machine)
     shootloop = 0
@@ -169,10 +170,6 @@ def main():
             shootloop += 1
 
         if keys[pygame.K_z]:
-            shooter.image = pygame.transform.rotate(shooter.image, shooter.angle)
-            shooter.rect = shooter.image.get_rect()
-
-
             # shooter.angle += shooter.rot_vel #exclusively for trajectory, not a visual
             # rotated_surface = shooter.image = pygame.transform.rotate(shooter.image, shooter.angle)
             # rect = rotated_surface.get_rect()
@@ -182,7 +179,6 @@ def main():
 
 
         if keys[pygame.K_c]:
-            pass
             # shooter.angle -= shooter.rot_vel #exclusively for trajectory, not a visual
             # rotated_surface = pygame.transform.rotate(shooter.image, -1 * shooter.angle)
             # rect = rotated_surface.get_rect()
