@@ -40,18 +40,6 @@ class Machine(pygame.sprite.Sprite):
 
         self.rect.center = (width / 2, height /2)
 
-        # self.x = x
-        # self.y = y
-        #
-        # self.width = width
-        # self.height = height
-        #
-        # self.vel = 10
-        #
-        # self.isJump = False
-        # self.left = False
-        # self.right = False
-
 # win.blit(win, (255, 0, 0), (self.x, self.y))
 
     def update(self, win):
@@ -83,8 +71,8 @@ class Shooterthing(pygame.sprite.Sprite):
         self.angle = 1 * radians(pi / 20)
         self.rot_vel = radians(30)
 
-    # def update(self, win):
-    #     win.blit(self.image, (width / 2, height / 2))
+    def update(self, win):
+        win.blit(self.image, (width / 2, height / 2))
 
 class Ball(object):
     def __init__(self, x, y, radius, color, trajectory):
@@ -98,14 +86,23 @@ class Ball(object):
     def draw(self,win):
         pygame.draw.circle(win, self.color, (self.x,self.y), self.radius)
 
-def rot_center(image, angle):
-    """rotate an image while keeping its center and size"""
-    orig_rect = image.get_rect()
-    rot_image = pygame.transform.rotate(image, angle)
-    rot_rect = orig_rect.copy()
-    rot_rect.center = rot_image.get_rect().center
-    rot_image = rot_image.subsurface(rot_rect).copy()
-    return rot_image
+
+offset = pygame.math.Vector2(50, 0)
+
+def rotate(surface, angle, pivot, offset):
+    """Rotate the surface around the pivot point.
+
+    Args:
+        surface (pygame.Surface): The surface that is to be rotated.
+        angle (float): Rotate by this angle.
+        pivot (tuple, list, pygame.math.Vector2): The pivot point.
+        offset (pygame.math.Vector2): This vector is added to the pivot.
+    """
+    rotated_image = pygame.transform.rotozoom(surface, -angle, 1)  # Rotate the image.
+    rotated_offset = offset.rotate(angle)  # Rotate the offset vector.
+    # Add the offset vector to the center/pivot point to shift the rect.
+    rect = rotated_image.get_rect(center=pivot+rotated_offset)
+    return rotated_image, rect  # Return the rotated image and shifted rect.
 
 # def redraw_game_window():
 #     """Redraws the game window"""
@@ -144,7 +141,7 @@ def main():
         if shootloop > 3:
             shootloop = 0
 
-        trajectory = (cos(shooter.angle), sin(shooter.angle))
+        trajectory = pygame.math.Vector2(cos(shooter.angle), sin(shooter.angle))
         print(trajectory)
 
         for event in pygame.event.get():
@@ -163,33 +160,17 @@ def main():
 
         keys = pygame.key.get_pressed()
 
+        print(type(shooter.image))
         if keys[pygame.K_x]: #to be shot automatically
             if len(tennisballs) < 2:
                 tennisballs.append(Ball(shooter.rect.top, shooter.rect.centery, 3, green, trajectory))
             shootloop += 1
 
         if keys[pygame.K_z]:
-            shooter.image = pygame.transform.rotate(shooter.image, shooter.angle)
-            shooter.rect = shooter.image.get_rect()
-
-
-            # shooter.angle += shooter.rot_vel #exclusively for trajectory, not a visual
-            # rotated_surface = shooter.image = pygame.transform.rotate(shooter.image, shooter.angle)
-            # rect = rotated_surface.get_rect()
-            # # rect.center = shooter.rect.center
-            # win.blit(rotated_surface, (rect.center))
-            # shooter.image = rot_center(shooter.image, shooter.angle)
-
+            shooter.image = rotate(shooter.image, 5, shooter.rect.center, trajectory)
 
         if keys[pygame.K_c]:
-            pass
-            # shooter.angle -= shooter.rot_vel #exclusively for trajectory, not a visual
-            # rotated_surface = pygame.transform.rotate(shooter.image, -1 * shooter.angle)
-            # rect = rotated_surface.get_rect()
-            # # rect.center = shooter.rect.center
-            # win.blit(rotated_surface, (rect.center))
-            # shooter.image = rot_center(shooter.image, shooter.angle)
-
+            shooter.image = rotate(shooter.image, 5, shooter.rect.center, trajectory)
 
         #update
         win.fill(black)
@@ -204,7 +185,6 @@ def main():
 
         # after drawing everything, flip (update) the display
         pygame.display.update()
-
 
     pygame.quit()
 
