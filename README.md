@@ -1,4 +1,4 @@
-# Untitled Video Game
+# Only Escape
 A Dichotomic Escape Platformer Game with the following features:
 - Artful Aesthetic which highlights the plot of the game
 - Smooth engine written by our own Skye Ozga
