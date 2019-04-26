@@ -20,7 +20,7 @@ cottoncandy = (255, 179, 230)
 #initialize pygame and create window
 width = 700
 height = 700
-fps = 40
+fps = 20
 
 win = pygame.display.set_mode((width, height))
 
@@ -62,17 +62,40 @@ class Shooterthing(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = pygame.Surface((10, 100))
+        self.orig_image = self.image
         self.image.fill(blue)
 
         self.rect = self.image.get_rect()
 
         self.rect.center = ((width / 2 + 5), (height / 2) + 50)
+        self.image.convert_alpha(self.image)
+        self.image.set_alpha(0)
+        self.image.fill(turquoise, self.rect)
+        self.image.set_colorkey(turquoise)
 
-        self.angle = 1 * radians(pi / 20)
-        self.rot_vel = radians(30)
+
+        self.pos = pygame.math.Vector2(self.rect.centerx, self.rect.top)
+        self.angle = 0
+        # self.rot_vel = radians(30)
+
+        self.offset = pygame.math.Vector2(0, 50)
+        self.trajectory = pygame.math.Vector2(cos(self.angle), sin(self.angle))
+
+    def rotate(self):
+        """Rotate the image of the sprite around a pivot point."""
+        # Rotate the image.
+        self.image = pygame.transform.rotozoom(self.orig_image, -self.angle, 1)
+        # Rotate the offset vector.
+        offset_rotated = self.offset.rotate(self.angle)
+        # Create a new rect with the center of the sprite + the offset.
+        # self.rect = self.image.get_rect(center = (width / 2 + 5, height / 2 + 50))
+        self.rect = self.image.get_rect(center = (self.pos + offset_rotated))
 
     def update(self, win):
-        win.blit(self.image, (width / 2, height / 2))
+        # self.angle += 1 * degrees(pi / 10)
+        self.rotate()
+        # win.blit(self.image, (width / 2, height / 2))
+
 
 class Ball(object):
     def __init__(self, x, y, radius, color, trajectory):
@@ -85,36 +108,6 @@ class Ball(object):
 
     def draw(self,win):
         pygame.draw.circle(win, self.color, (self.x,self.y), self.radius)
-
-
-offset = pygame.math.Vector2(50, 0)
-
-def rotate(surface, angle, pivot, offset):
-    """Rotate the surface around the pivot point.
-
-    Args:
-        surface (pygame.Surface): The surface that is to be rotated.
-        angle (float): Rotate by this angle.
-        pivot (tuple, list, pygame.math.Vector2): The pivot point.
-        offset (pygame.math.Vector2): This vector is added to the pivot.
-    """
-    rotated_image = pygame.transform.rotozoom(surface, -angle, 1)  # Rotate the image.
-    rotated_offset = offset.rotate(angle)  # Rotate the offset vector.
-    # Add the offset vector to the center/pivot point to shift the rect.
-    rect = rotated_image.get_rect(center=pivot+rotated_offset)
-    return rotated_image, rect  # Return the rotated image and shifted rect.
-
-# def redraw_game_window():
-#     """Redraws the game window"""
-#
-#     win.fill(red)
-#
-#     all_sprites.draw(win)
-#
-#     for ball in tennisballs:
-#         Ball.draw(win)
-#     #after drawing everything, flip (update) the display
-#     pygame.display.update()
 
 def main():
     #initialized values / runs only once when game is started
@@ -142,7 +135,6 @@ def main():
             shootloop = 0
 
         trajectory = pygame.math.Vector2(cos(shooter.angle), sin(shooter.angle))
-        print(trajectory)
 
         for event in pygame.event.get():
             #check for closing window
@@ -160,17 +152,18 @@ def main():
 
         keys = pygame.key.get_pressed()
 
-        print(type(shooter.image))
         if keys[pygame.K_x]: #to be shot automatically
             if len(tennisballs) < 2:
                 tennisballs.append(Ball(shooter.rect.top, shooter.rect.centery, 3, green, trajectory))
             shootloop += 1
 
         if keys[pygame.K_z]:
-            shooter.image = rotate(shooter.image, 5, shooter.rect.center, trajectory)
+            # shooter.image, shooter.rect = rot_center(shooter.image, shooter.rect, shooter.angle)
+            shooter.angle += 5
 
         if keys[pygame.K_c]:
-            shooter.image = rotate(shooter.image, 5, shooter.rect.center, trajectory)
+            # shooter.image, shooter.rect = rot_center(shooter.image, shooter.rect, shooter.angle)
+            shooter.angle -= 5
 
         #update
         win.fill(black)
@@ -181,7 +174,6 @@ def main():
 
         for ball in tennisballs:
             ball.draw(win)
-            # win.blit(ball.image, (ball.x, ball.y))
 
         # after drawing everything, flip (update) the display
         pygame.display.update()
