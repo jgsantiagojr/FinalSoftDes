@@ -61,17 +61,18 @@ class Shooterthing(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.Surface((10, 100))
+        self.image = pygame.Surface((10, 100), pygame.SRCALPHA, 32)
         self.orig_image = self.image
+        self.image.convert_alpha(self.image)
+
         self.image.fill(blue)
 
         self.rect = self.image.get_rect()
 
         self.rect.center = ((width / 2 + 5), (height / 2) + 50)
-        self.image.convert_alpha(self.image)
-        self.image.set_alpha(0)
-        self.image.fill(turquoise, self.rect)
-        self.image.set_colorkey(turquoise)
+        # self.image.set_alpha(0)
+        # self.image.fill(turquoise, self.rect)
+        # self.image.set_colorkey(turquoise)
 
 
         self.pos = pygame.math.Vector2(self.rect.centerx, self.rect.top)
@@ -117,8 +118,8 @@ def main():
 
     shooter = Shooterthing()
     machine = Machine()
-    all_sprites.add(shooter)
     all_sprites.add(machine)
+    all_sprites.add(shooter)
     shootloop = 0
 
 
@@ -166,11 +167,13 @@ def main():
             shooter.angle -= 5
 
         #update
-        win.fill(black)
+        win.fill(cottoncandy)
         all_sprites.update(win)
+        shooter.update(win)
 
         #draw / render
         all_sprites.draw(win)
+
 
         for ball in tennisballs:
             ball.draw(win)
