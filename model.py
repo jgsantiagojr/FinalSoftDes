@@ -53,6 +53,15 @@ Platform(200,40,0,screenbottom-600),
 Platform(40,200,1600,screenbottom)]
 )
 
+AvatarImages = ['run/run_l1.png', 'run/run_l2.png',
+                'run/run_l3.png', 'run/run_l4.png',
+                'run/run_l5.png', 'run/run_l6.png',
+                'run/run_l7.png', 'run/run_l8.png',
+                'run/run_r1.png', 'run/run_r2.png',
+                'run/run_r3.png', 'run/run_r4.png',
+                'run/run_r5.png', 'run/run_r6.png',
+                'run/run_r7.png', 'run/run_r8.png', ]
+'''
 class PlatformerModel(object):
     """ Encodes a model of the game state """
     def __init__(self, size, clock):
@@ -61,7 +70,7 @@ class PlatformerModel(object):
         self.level = 0
         self.stages = [bigboi, ceiling2, pit1, pit3, ceiling1, pit2];
 
-        self.avatar = Avatar(20, 20, 400, self.view_height - 650, size)
+        self.avatar = Avatar(20, 20, 400, self.stages[0].size[1]-100, size)
 
         self.topleft = [self.avatar.x + self.avatar.width/2 - self.view_width/2, self.avatar.y + self.avatar.width/2 -self.view_width/2]
 
@@ -73,6 +82,9 @@ class PlatformerModel(object):
         #Update clock to allow for time-based physics calculations
         self.clock.tick()
         self.dt = self.clock.get_time()
+
+        if len(self.avatar.inputs)<1:
+            self.dt = self.dt*0.1
 
         #Update Avatar
         self.avatar.update(self.dt, self.stages[self.level])
@@ -86,8 +98,8 @@ class PlatformerModel(object):
 
         if self.avatar.x+self.avatar.width/2-self.view_width/2<0:
             self.topleft[0] = 0
-        elif self.avatar.x+self.avatar.width/2-self.view_width > self.stages[self.level].width:
-            self.topleft[0] = self.self.stages[self.level].width-self.view_width
+        elif self.avatar.x+self.avatar.width/2-self.view_width > self.stages[self.level].size[0]:
+            self.topleft[0] = self.self.stages[self.level].size[0]-self.view_width
 
         if self.avatar.y + self.avatar.height/2 - self.view_height/2 < 0:
             self.topleft[1] = 0
@@ -103,3 +115,81 @@ class PlatformerModel(object):
         output_lines.append(str(self.avatar))
         # print one item per line
         return "\n".join(output_lines)
+
+
+'''
+class PlatformerModel(object):
+    """ Encodes a model of the game state """
+    def __init__(self, size, clock):
+        self.view_width = size[0]
+        self.view_height = size[1]
+        self.level = 0
+        self.stages = [bigboi, ceiling2, pit1, pit3, ceiling1, pit2];
+
+        self.avatar = Avatar(400, 9000, AvatarImages, size)
+
+        """
+        self.platforms = pygame.sprite.Group()
+        self.enemies = pygame.sprite.Group()
+        self.enemyprojectiles = pygame.sprite.Group()
+        self.friendlyprojectiles = pygame.sprite.Group()
+
+        for p in self.stages[0].platforms:
+            self.platforms.add(p)
+
+        for e in self.stages[0].enemies:
+            self.enemies.add(e)
+        """
+
+        self.topleft = [self.avatar.x + self.avatar.width/2 - self.view_width/2, self.avatar.y + self.avatar.width/2 -self.view_width/2]
+
+        self.clock = clock
+
+    def update(self):
+        """ Update the game state (currently only tracking the avatar) """
+
+        #Update clock to allow for time-based physics calculations
+        self.clock.tick()
+        self.dt = self.clock.get_time()
+
+        if len(self.avatar.inputs)<1:
+            self.dt = self.dt*0.1
+
+        #Update Avatar
+        self.avatar.update(self.dt, self.stages[self.level])
+        if 'QUIT' in self.avatar.inputs:
+            return True
+
+        if self.stages[self.level].completed:
+            level += 1
+
+            """
+            for p in self.platforms:
+                p.kill()
+            for e in self.enemies:
+                e.kill()
+            for e in self.enemyprojectiles:
+                e.kill()
+            for f in self.friendlyprojectiles:
+                f.kill()
+            for p in self.stages[level].platforms:
+                self.platforms.add(p)
+            for e in self.stages[level].enemies:
+                self.enemies.add(e)
+            """
+
+
+        self.topleft = [self.avatar.x + self.avatar.width/2 - self.view_width/2, self.avatar.y + self.avatar.height/2 -self.view_height/2]
+
+        if self.avatar.x+self.avatar.width/2-self.view_width/2<0:
+            self.topleft[0] = 0
+        elif self.avatar.x+self.avatar.width/2-self.view_width > self.stages[self.level].width:
+            self.topleft[0] = self.self.stages[self.level].width-self.view_width
+
+        if self.avatar.y + self.avatar.height/2 - self.view_height/2 < 0:
+            self.topleft[1] = 0
+        elif self.avatar.y+self.avatar.height/2-self.view_height > self.stages[self.level].height:
+            self.topleft[1] = self.self.stages[self.level].height-self.view_height
+
+    #def draw(self):
+        #self.stages[level].draw(self.topleft)
