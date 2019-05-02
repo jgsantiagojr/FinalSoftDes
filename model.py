@@ -6,17 +6,18 @@ size = (1920, 1080)
 screenbottom = 980
 
 bigboi = Stage((10000,10000),
-               [Platform(40, 10000, 0, 9960),
-                Platform(40, 1000, 500, 9800),
-                Platform(40, 1000, 1000, 9600),
-                Platform(40, 1000, 1500, 9400),
-                Platform(40, 1000, 2000, 9200),
-                Platform(40, 1000, 2500, 9000),
-                Platform(40, 1000, 3000, 8800),
-                Platform(40, 1000, 3500, 8600),
-                Platform(40, 1000, 4000, 8400),
-                Platform(40, 1000, 4500, 8200),
-                Platform(40, 1000, 5000, 8000)])
+               [Platform(200, 10000, 0, 9960),
+                Platform(200, 1000, 500, 9800),
+                Platform(200, 1000, 1000, 9600),
+                Platform(200, 1000, 1500, 9400),
+                Platform(200, 1000, 2000, 9200),
+                Platform(200, 1000, 2500, 9000),
+                Platform(200, 1000, 3000, 8800),
+                Platform(200, 1000, 3500, 8600),
+                Platform(200, 1000, 4000, 8400),
+                Platform(200, 1000, 4500, 8200),
+                Platform(200, 1000, 5000, 8000),
+                Platform(9900, 1000, 5000, 200)])
 
 pit1 = Stage(size,
 [Platform(40,size[0]/2,0,screenbottom),

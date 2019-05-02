@@ -369,3 +369,5 @@ class Avatar(DynamicEntity):
             self.x = 0
         if self.x > stage.width-self.width:
             self.x = stage.width-self.width
+
+        print((self.x,self.y))
