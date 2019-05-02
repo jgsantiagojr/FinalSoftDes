@@ -172,7 +172,7 @@ def main():
             shooter.angle -= 9
 
         #update
-        win.fill(amonscolor)
+        win.fill(red)
         all_sprites.update(win)
         shooter.update(win)
 
