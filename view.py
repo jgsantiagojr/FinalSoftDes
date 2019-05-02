@@ -23,19 +23,26 @@ class PyGameWindowView(object):
 
         # Draw white platforms in model
         for platform in self.model.stages[self.model.level].platforms:
+            
             pygame.draw.rect(self.screen,
                              pygame.Color(255, 255, 255),
                              pygame.Rect(platform.x-                           self.model.topleft[0],
                                          platform.y- self.model.topleft[1],
                                          platform.width,
                                          platform.height))
+
+            #platform.draw(self.model.topleft, self.screen)
         # Draw avatar as red square
+        '''
         pygame.draw.rect(self.screen,
                          pygame.Color(255, 0, 0),
-                         pygame.Rect(self.model.avatar.x-                      self.model.topleft[0],
+                         pygame.Rect(self.model.avatar.x-                           self.model.topleft[0],
                                      self.model.avatar.y- self.model.topleft[1],
                                      self.model.avatar.width,
                                      self.model.avatar.height))
+        '''
+        self.model.avatar.draw(self.model.topleft, self.screen)
+        #model.avatar.draw(self.model.topleft, self.screen)
         #print(self.model.avatar.x)
         #print(self.model.left_edge)
         # Call update so things actually change

@@ -1,3 +1,7 @@
+from entity import Entity, DynamicEntity
+import pygame
+
+
 class Platform(object):
     """ Encodes the state of a platform in the game """
     def __init__(self,height,width,x,y):
@@ -5,6 +9,7 @@ class Platform(object):
         self.width = width
         self.x = x
         self.y = y
+        self.mask = pygame.mask.Mask((int(width),int(height)))
 
     def __str__(self):
         return "Platform height=%f, width=%f, x=%f, y=%f" % (self.height,

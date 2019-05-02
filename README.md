@@ -16,4 +16,13 @@ Authors: Jamie Santiago, Skye Ozga, Jerry Goss, Mason Grabowski
 
 NOTE: This game is currently in development and is not yet in playable form
 
+TODO:
+INSERT DETAILS FOR DIFFERENT SECTIONS
+- Our Process
+- Aethestetic 
+- Enemies
+- Weapons
+- Engine
+
+
 
