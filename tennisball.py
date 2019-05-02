@@ -12,6 +12,7 @@ green = (0, 255, 0)
 blue = (0, 0, 255)
 turquoise = (0, 255, 255)
 cottoncandy = (255, 179, 230)
+amonscolor = (200, 0, 200)
 
 # all_sprites = pygame.sprite.Group() #group to allow all sprites to be updated
 # tennisballs = [] #list to enable multiple tennis balls to exist on screen
@@ -61,6 +62,8 @@ class Shooterthing(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
 
+        self.image = pygame.Surface((10, 100))
+
         self.image = pygame.Surface((10, 100), pygame.SRCALPHA, 32)
         self.orig_image = self.image
         self.image.convert_alpha(self.image)
@@ -70,13 +73,9 @@ class Shooterthing(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
         self.rect.center = ((width / 2 + 5), (height / 2) + 50)
-        # self.image.set_alpha(0)
-        # self.image.fill(turquoise, self.rect)
-        # self.image.set_colorkey(turquoise)
-
 
         self.pos = pygame.math.Vector2(self.rect.centerx, self.rect.top)
-        self.angle = 0
+        self.angle = degrees(pi/2)
         # self.rot_vel = radians(30)
 
         self.offset = pygame.math.Vector2(0, 50)
@@ -99,16 +98,21 @@ class Shooterthing(pygame.sprite.Sprite):
 
 
 class Ball(object):
-    def __init__(self, x, y, radius, color, trajectory):
+    def __init__(self, x, y, radius, color, angle):
         self.x = x
         self.y = y
+        self.angle = angle
+        self.pos = pygame.math.Vector2(self.x, self.y)
         self.radius = radius
         self.color = green
-        self.trajectory = trajectory
-        self.vel = trajectory * 7
+        # self.vel = trajectory * 7
+
+    def update(self):
+        self.x += cos(self.angle)
+        self.y += sin(self.angle)
 
     def draw(self,win):
-        pygame.draw.circle(win, self.color, (self.x,self.y), self.radius)
+        pygame.draw.circle(win, self.color, (int(self.x), int(self.y)), self.radius)
 
 def main():
     #initialized values / runs only once when game is started
@@ -135,7 +139,7 @@ def main():
         if shootloop > 3:
             shootloop = 0
 
-        trajectory = pygame.math.Vector2(cos(shooter.angle), sin(shooter.angle))
+        # trajectory = pygame.math.Vector2(cos(shooter.angle), sin(shooter.angle))
 
         for event in pygame.event.get():
             #check for closing window
@@ -147,27 +151,27 @@ def main():
             #otherwise, remove it from gameplay (pop)
 
             if ball.x < width and ball.x > 0:
-                ball.x += ball.vel
+                ball.update()
             else:
                 tennisballs.pop(tennisballs.index(ball))
 
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_x]: #to be shot automatically
-            if len(tennisballs) < 2:
-                tennisballs.append(Ball(shooter.rect.top, shooter.rect.centery, 3, green, trajectory))
+            if len(tennisballs) < 100:
+                tennisballs.append(Ball(shooter.rect.top, shooter.rect.centery, 5, green, shooter.angle))
+
+                # tennisballs.append(Ball(100, 100, 5, green, shooter.trajectory))
             shootloop += 1
 
         if keys[pygame.K_z]:
-            # shooter.image, shooter.rect = rot_center(shooter.image, shooter.rect, shooter.angle)
-            shooter.angle += 5
+            shooter.angle += 9
 
         if keys[pygame.K_c]:
-            # shooter.image, shooter.rect = rot_center(shooter.image, shooter.rect, shooter.angle)
-            shooter.angle -= 5
+            shooter.angle -= 9
 
         #update
-        win.fill(cottoncandy)
+        win.fill(amonscolor)
         all_sprites.update(win)
         shooter.update(win)
 
