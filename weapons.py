@@ -24,10 +24,20 @@ class Shuriken(Weapons):
     def __init__(self, x, y, angle):
         super(Shuriken, self).__init__(x, y, angle)
 
-    def attack(self):
+    def attack(self, shuriken_list):
         ##creates a shuriken
-        shurikens.append(shurikens(x,y,angle))
-
+        shuriken_list.append(shurikens(x,y,angle))
+        
+    def scatter_throw(self, shuriken_list):
+        ##creates 5 shurikens, at varied angles
+        shuriken1 = shurikens(x, y, angle + 90)
+        shuriken2 = shurikens(x,y, angle + 45)
+        shuriken3 = shurikens(x,y, angle)
+        shuriken4 = shurikens(x,y, angle - 45)
+        shuriken5 = shurikens(x,y, angle - 90)
+        
+        shuriken_list.append(shuriken1, shuriken2, shuriken3, shuriken4, shuriken5)
+        
 class Whip(Weapons):
     """Collision based weapon"""
     def __init__(self, x, y, angle):
@@ -47,3 +57,7 @@ class Sword(Weapons):
         ##tell the view module to run the sword attack gif with
         ##the hitbox being rewritten around it
         return True
+    
+class Weapons_Inventory(object):
+    """Keeps track of what weapons the user has"""
+    def __init__(self)
