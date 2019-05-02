@@ -79,6 +79,7 @@ class Shooterthing(pygame.sprite.Sprite):
 
         self.offset = pygame.math.Vector2(0, 50)
         self.trajectory = pygame.math.Vector2(cos(self.angle), sin(self.angle))
+        self.trajectory = self.trajectory.rotate(90) #so that the balls shoot collinearly with shooter
 
     def rotate(self):
         """Rotate the image of the sprite around a pivot point."""
@@ -92,26 +93,28 @@ class Shooterthing(pygame.sprite.Sprite):
 
     def update(self, win):
         self.rotate()
+        self.direction = self.trajectory.rotate(self.angle)
         # win.blit(self.image, (width / 2, height / 2))
 
-
-class Ball(object):
-    def __init__(self, x, y, radius, color, angle):
-        self.x = x
-        self.y = y
-        self.pos = pygame.math.Vector2(self.x, self.y)
-        self.angle = angle + pi/2
-        self.pos = pygame.math.Vector2(self.x, self.y)
+class Ball(pygame.sprite.Sprite):
+    def __init__(self, pos, direction, color, radius):
+        super().__init__()
+        self.image = pygame.Surface((10, 10))
+        self.image.fill(color)
+        self.color = color
         self.radius = radius
-        self.color = green
-        # self.vel = trajectory * 7
+        # self.image.set_colorkey((0, 0, 0))
+        # pygame.draw.circle(self.image, pygame.Color('green'), (4, 4), 4)
+        self.rect = self.image.get_rect(center=pos)
+        self.direction = direction
+        self.pos = pygame.math.Vector2(self.rect.center)
 
-    def update(self):
-        self.x += cos(self.angle)
-        self.y += sin(self.angle)
+    def draw(self, win):
+        pygame.draw.circle(win, self.color, (int(self.rect.centerx), int(self.rect.centery)), self.radius)
 
-    def draw(self,win):
-        pygame.draw.circle(win, self.color, (int(self.x), int(self.y)), self.radius)
+    def update(self, win, dt):
+        self.pos += self.direction * dt
+        self.rect.center = self.pos
 
 def main():
     #initialized values / runs only once when game is started
@@ -124,6 +127,7 @@ def main():
     all_sprites.add(machine)
     all_sprites.add(shooter)
     shootloop = 0
+    dt = 0
 
 
     #game loop / no looping happens before here
@@ -131,7 +135,7 @@ def main():
 
     while running:
         #process input (events)
-        clock.tick(fps)
+        dt = clock.tick(fps)
 
         if shootloop > 0:
             shootloop += 1
@@ -149,8 +153,8 @@ def main():
             #if the bullet is within the x bounds of the screen, move it
             #otherwise, remove it from gameplay (pop)
 
-            if ball.x < width and ball.x > 0:
-                ball.update()
+            if ball.rect.centerx < width and ball.rect.centerx > 0:
+                ball.update(win, dt)
             else:
                 tennisballs.pop(tennisballs.index(ball))
 
@@ -158,9 +162,7 @@ def main():
 
         if keys[pygame.K_x]: #to be shot automatically
             if len(tennisballs) < 1000:
-                tennisballs.append(Ball(shooter.rect.top, shooter.rect.centery, 5, green, shooter.angle))
-
-                # tennisballs.append(Ball(100, 100, 5, green, shooter.trajectory))
+                tennisballs.append(Ball(shooter.rect.center, shooter.direction, green, 5))
             shootloop += 1
 
         if keys[pygame.K_z]:
