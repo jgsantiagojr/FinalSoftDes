@@ -14,7 +14,7 @@ class PyGameWindowView(object):
             containing the width and height """
         self.model = model
         # Make display at resolution size in full screen
-        self.screen = pygame.display.set_mode(size,pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode(size,pygame.RESIZABLE)
 
     def draw(self):
         """ Draw the current game objects to the screen """
@@ -22,14 +22,25 @@ class PyGameWindowView(object):
         self.screen.fill(pygame.Color(0,0,0))
 
         # Draw white platforms in model
+        '''
         for platform in self.model.stages[self.model.level].platforms:
-            
+
             pygame.draw.rect(self.screen,
                              pygame.Color(255, 255, 255),
-                             pygame.Rect(platform.x-                           self.model.topleft[0],
-                                         platform.y- self.model.topleft[1],
+                             pygame.Rect(platform.x-                           self.model.camera.left,
+                                         platform.y- self.model.camera.top,
                                          platform.width,
                                          platform.height))
+        '''
+
+        for p in self.model.stage().platforms:
+            p.draw(self.model.camera, self.screen)
+
+        for e in self.model.enemies:
+            e.draw(self.model.camera,self.screen)
+
+        for p in self.model.enemy_projectiles:
+            p.draw(self.model.camera,self.screen)
 
             #platform.draw(self.model.topleft, self.screen)
         # Draw avatar as red square
@@ -41,7 +52,7 @@ class PyGameWindowView(object):
                                      self.model.avatar.width,
                                      self.model.avatar.height))
         '''
-        self.model.avatar.draw(self.model.topleft, self.screen)
+        self.model.avatar.draw(self.model.camera, self.screen)
         #model.avatar.draw(self.model.topleft, self.screen)
         #print(self.model.avatar.x)
         #print(self.model.left_edge)

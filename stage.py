@@ -9,3 +9,9 @@ class Stage(object):
         self.height = size[1]
         self.died = False
         self.completed = False
+
+    def contains_point(self, point):
+        if 0 < point[0] and point[0] < self.width:
+            if 0 < point[1] and point[1] < self.height:
+                return True
+        return False

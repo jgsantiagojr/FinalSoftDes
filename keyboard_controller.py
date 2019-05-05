@@ -30,5 +30,6 @@ class PyGameKeyboardController(object):
         # Quits the game if q or p are pressed
         if keys[pygame.K_q] or keys[pygame.K_p]:
             self.model.avatar.addinput('QUIT')
+            return True
         else:
             self.model.avatar.removeinput('QUIT')

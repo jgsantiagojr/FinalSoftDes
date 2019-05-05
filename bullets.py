@@ -1,12 +1,14 @@
 import pygame
+from entity import Entity, DynamicEntity
 
-pygame.init()
-
-class projectile(Fynanmic):
-	def __init__(self,x, y, angle):
+class Projectile(DynamicEntity):
+	def __init__(self,x, y, trajectory, images):
+		super().__init__(x,y,images)
 		self.x = x
 		self.y = y
-		self.angle = angle
+		self.trajectory = trajectory
+		self.speed = 1
+
 	def __str__(self):
 		location = "Coordinates: (" + str(self.x) + "," + str(self.y) + ") \n"
 		size = "Radius: " + str(self.radius) + "\n"
@@ -15,24 +17,17 @@ class projectile(Fynanmic):
 		lifetime = "Lifeline :" + str(self.lifetime) + "\n"
 		return location + size + speed + angle + lifetime ##Printing important information
 
-	def update_projectile(self):
-		self.coverdraw()
-		self.x += math.degrees(math.cos(self.angle)) * self.vel
-		self.y += math.degrees(math.sin(self.angle)) * self.vel
+	def update(self, dt):
+		self.x += self.trajectory[0] * self.speed * dt
+		self.y += self.trajectory[1] * self.speed * dt
 
 
-class bullet(projectile):
-	def __init__(self, x, y, angle):
-		super(bullet, self).__init__(x, y, angle)
+class Bullet(Projectile):
+	def __init__(self, x, y, trajectory, images):
+		super().__init__(x, y, trajectory, images)
+		self.speed = self.speed*5
 
-	def update_projectile(self):
-		self.x += math.degrees(math.cos(self.angle)) * self.vel
-		self.y += math.degrees(math.sin(self.angle)) * self.vel
 
-class shurikens(projectile):
-	def __init__(self, x, y, angle):
-		super(bullet,self).__init__(x, y, angle)
-
-	def update_projectile(self):
-		self.x += math.degrees(math.cos(self.angle)) * self.vel
-		self.y += math.degrees(math.sin(self.angle)) * self.vel
+class Shuriken(Projectile):
+	def __init__(self, x, y, trajectory, images):
+		super().__init__(x, y, trajectory, images)
