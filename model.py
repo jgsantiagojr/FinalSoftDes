@@ -63,7 +63,7 @@ AvatarImages = ['Sprites/jump_l/jump_l1.png', 'Sprites/jump_l/jump_l2.png',
                 'Sprites/standing_l/standing_lt3.png',
                 'Sprites/standing_r/standing_rt3.png']
 
-EnemyImages = ['Sprites/standing_l/redstanding_l.png',
+StaticEnemyImages = ['Sprites/standing_l/redstanding_l.png',
                'Sprites/standing_r/redstanding_r.png',
                'Sprites/standing_l/redstanding_lt1.png',
                'Sprites/standing_r/redstanding_rt1.png',
@@ -98,11 +98,11 @@ bigboi = Stage((10000,10200),
                 Platform(200, 1000, 4500, 8200),
                 Platform(200, 1000, 5000, 8000),
                 Platform(9900, 1000, 5000, 200)],
-                [StaticEnemy(550, 9500,EnemyImages, BulletImages),
-                           StaticEnemy(650, 9500,EnemyImages, BulletImages),
-                           StaticEnemy(750, 9500,EnemyImages, BulletImages),
-                           StaticEnemy(850, 9500,EnemyImages, BulletImages),
-                           StaticEnemy(950, 9500,EnemyImages, BulletImages)])
+                [StaticEnemy(550, 9500,StaticEnemyImages, BulletImages),
+                 StaticEnemy(650, 9500,StaticEnemyImages, BulletImages),
+                 StaticEnemy(750, 9500,StaticEnemyImages, BulletImages),
+                 StaticEnemy(850, 9500,StaticEnemyImages, BulletImages),
+                 StaticEnemy(950, 9500,StaticEnemyImages, BulletImages)])
 
 pit1 = Stage(size,
 [Platform(40,size[0]/2,0,screenbottom),

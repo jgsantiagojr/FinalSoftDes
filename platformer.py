@@ -46,12 +46,13 @@ def start_game(size):
             else:
                 view.screen.blit(pygame.image.load('death-screen.png'),(0,0))
                 pygame.display.update()
-                time.sleep(.5)
+                time.sleep(.1)
                 if controller.handle_keys(pygame.key.get_pressed()):
                     model.reset()
         else:
             view.screen.blit(pygame.image.load('title-screen.png'),(0,0))
             pygame.display.update()
+            time.sleep(.1)
 
 
 

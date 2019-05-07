@@ -39,8 +39,6 @@ class StaticEnemy(Entity):
 
         return False
 
-
-
     def shoot(self, dt):
         self.clock += dt
         if self.clock > self.cooldown:
@@ -50,6 +48,13 @@ class StaticEnemy(Entity):
 
     def update(self, avatar, stage, enemy_projectiles: pygame.sprite.Group, dt):
         super().update()
+        if self.clock < 300:
+            self.frame = int(self.frame%2 + 2 + 2*((self.clock)//100))
         if self.aim(avatar, stage):
+            if self.clock > 300:
+                if self.trajectory.dot(Vector2(1,0)) > 0:
+                    self.frame = 1
+                else:
+                    self.frame = 0
             if self.shoot(dt):
                 enemy_projectiles.add(Bullet(self.handpos.x, self.handpos.y, self.trajectory, self.bullet_images))
