@@ -48,6 +48,7 @@ class StaticEnemy(Entity):
         return False
 
     def update(self, avatar, stage, enemy_projectiles: pygame.sprite.Group, dt):
+        super().update()
         if self.aim(avatar, stage):
             if self.shoot(dt):
                 enemy_projectiles.add(Bullet(self.handpos.x, self.handpos.y, self.trajectory, self.bullet_images))
