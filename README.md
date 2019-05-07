@@ -18,7 +18,7 @@ If you don't have pygame installed you can install it by following the direction
 
 You also need to install the IDLE software. From the terminal, type in “sudo apt-get install idle”. The root password is also needed to install IDLE.
 
-Authors: Jamie Santiago, Skye Ozga, Jerry Goss, Mason Grabowski
+Authors: Skye Ozga, Jerry Goss, Jamie Santiago, Mason Grabowski
 
 ### _How It Came To Be_
 Sometime around mid 2019, 4 engineering students came up with a crazy idea.... but before we go into that let's start at the beginning.
@@ -30,11 +30,11 @@ In their Software Design class, second semester, they were tasked with a final p
 
 They knew they wanted to make a game, but they had to decide what kind. After some conversation, they figured 2 things out:
 - The game would be a 2D Platformer
-- The game would have the time flow mechanic of the PC Game SUPERHOT
+- The game would have the time flow mechanic of the PC Game SUPERHOT (time moves when the player is moving)
 
 (Now, to clarify, the first game decision was made a month before the final project started, this gave Skye the opportunity to use their Mini-Project 4, the one directly before the final project, to develop a good basis for a game engine, which would make all of their lives much easier.)
 
-These 2 things were enough for them to get started, Skye on the engine and overarching structure, Jamie worked on weapons, Jerry on enemies, and Mason on graphics and animations. The game was afoot, and things were looking good.
+These 2 things were enough for them to get started, Skye worked on the platform and overarching structure, Jamie worked on weapons, Jerry on enemies and aiming, and Mason on graphics and animations. The game was afoot, and things were looking good.
 
 However road bumps were hit, due to other commitments Mason, and Skye were out of state for a week, they were busy in competitions they spent months preparing for. During this time Jamie and Jerry took a bit of a break from their technical parts, and used the first Architectural Review to get some consumer feedback. They asked their class what types of games they play and what they like to see in a game, as well as for any concerns or tips that came up.
 
