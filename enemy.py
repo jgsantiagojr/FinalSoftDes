@@ -25,8 +25,8 @@ class StaticEnemy(Entity):
         self.trajectory = trajectory/trajectory.length()
 
         testpoint = Vector2(self.handpos)
-        stepsize = 1
-        '''
+        stepsize = 10
+
         while stage.contains_point(testpoint):
             for p in stage.platforms:
                 if p.contains_point(testpoint):
@@ -34,9 +34,10 @@ class StaticEnemy(Entity):
                 elif avatar.contains_point(testpoint):
                     return True
 
+
             testpoint += stepsize * self.trajectory
-        '''
-        return True
+
+        return False
 
 
 
