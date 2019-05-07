@@ -2,6 +2,7 @@ from platform import Platform
 from avatar import Avatar
 from stage import Stage
 from enemy import StaticEnemy
+from entity import Entity, DynamicEntity
 import pygame
 
 size = (1920, 1080)
@@ -10,7 +11,9 @@ screenbottom = 980
 
 AvatarImages = ['Sprites/jump_l/jump_l1.png', 'Sprites/jump_l/jump_l2.png',
                 'Sprites/jump_l/jump_l3.png', 'Sprites/jump_l/jump_l4.png',
-                'Sprites/jump_l/jump_l5.png', 'Sprites/jump_r/jump_r1.png', 'Sprites/jump_r/jump_r2.png', 'Sprites/jump_r/jump_r3.png', 'Sprites/jump_r/jump_r4.png', 'Sprites/jump_r/jump_r5.png',
+                'Sprites/jump_l/jump_l5.png', 'Sprites/jump_r/jump_r1.png',
+                'Sprites/jump_r/jump_r2.png', 'Sprites/jump_r/jump_r3.png',
+                'Sprites/jump_r/jump_r4.png', 'Sprites/jump_r/jump_r5.png',
                 'Sprites/run_l/run_l1.png', 'Sprites/run_l/run_l2.png',
                 'Sprites/run_l/run_l3.png', 'Sprites/run_l/run_l4.png',
                 'Sprites/run_l/run_l5.png', 'Sprites/run_l/run_l6.png',
@@ -79,6 +82,8 @@ ShurikenImages = ['Sprites/shruiken/shruiken_1.png',
                   'Sprites/shruiken/shruiken_6.png',
                   'Sprites/shruiken/shruiken_7.png',
                   'Sprites/shruiken/shruiken_8.png']
+
+TitleImages = ['title-screen.png']
 
 bigboi = Stage((10000,10200),
                [Platform(200, 10000, 0, 9960),
@@ -183,6 +188,7 @@ class PlatformerModel(object):
         self.view_height = size[1]
         self.level = 0
         self.stages = [bigboi, ceiling2, pit1, pit3, ceiling1, pit2];
+        self.pictures = []
 
         self.avatar = Avatar(400, 9000, AvatarImages, ShurikenImages, size)
         self.avatar_group = pygame.sprite.GroupSingle(self.avatar)
@@ -253,20 +259,6 @@ class PlatformerModel(object):
         if self.stages[self.level].completed:
             level += 1
 
-            """
-            for p in self.platforms:
-                p.kill()
-            for e in self.enemies:
-                e.kill()
-            for e in self.enemyprojectiles:
-                e.kill()
-            for f in self.friendlyprojectiles:
-                f.kill()
-            for p in self.stages[level].platforms:
-                self.platforms.add(p)
-            for e in self.stages[level].enemies:
-                self.enemies.add(e)
-            """
 
         self.camera.update(self.avatar.x, self.avatar.y, self.stage())
 

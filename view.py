@@ -14,7 +14,7 @@ class PyGameWindowView(object):
             containing the width and height """
         self.model = model
         # Make display at resolution size in full screen
-        self.screen = pygame.display.set_mode(size,pygame.RESIZABLE)
+        self.screen = pygame.display.set_mode(size,pygame.FULLSCREEN)
 
     def draw(self):
         """ Draw the current game objects to the screen """
@@ -34,6 +34,6 @@ class PyGameWindowView(object):
             p.draw(self.model.camera,self.screen)
 
         self.model.avatar.draw(self.model.camera, self.screen)
-        
+
         # Call update so things actually change
         pygame.display.update()
