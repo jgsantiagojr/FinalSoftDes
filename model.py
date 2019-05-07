@@ -104,6 +104,27 @@ bigboi = Stage((10000,10200),
                  StaticEnemy(850, 9500,StaticEnemyImages, BulletImages),
                  StaticEnemy(950, 9500,StaticEnemyImages, BulletImages)])
 
+realone = Stage((2460, 2160),
+                [Platform(120, 2400, 0, 2040),
+                 Platform(540, 2250, 0, 900),
+                 Platform(120, 420, 0, 360),
+                 Platform(540, 2250, 0, 900),
+                 Platform(120, 120, 480, 480),
+                 Platform(120, 120, 2280, 660),
+                 Platform(420, 60, 780, 480),
+                 Platform(420, 60, 1080, 240),
+                 Platform(180, 60, 1080, 1860),
+                 Platform(420, 60, 1800, 1440),
+                 Platform(2100, 60, 2400, 0),
+                 Platform(300, 300, 2100, 1740)],
+                [StaticEnemy(420, 859,StaticEnemyImages, BulletImages),
+                 StaticEnemy(1200, 859,StaticEnemyImages, BulletImages),
+                 StaticEnemy(1500, 859,StaticEnemyImages, BulletImages),
+                 StaticEnemy(2340, 619,StaticEnemyImages, BulletImages),
+                 StaticEnemy(900, 1999,StaticEnemyImages, BulletImages),
+                 StaticEnemy(1500, 1999,StaticEnemyImages, BulletImages),
+                 StaticEnemy(2120, 1699,StaticEnemyImages, BulletImages)])
+
 pit1 = Stage(size,
 [Platform(40,size[0]/2,0,screenbottom),
 Platform(40,size[0]/2,1200,screenbottom)]
@@ -187,7 +208,7 @@ class PlatformerModel(object):
         self.view_width = size[0]
         self.view_height = size[1]
         self.level = 0
-        self.stages = [bigboi, ceiling2, pit1, pit3, ceiling1, pit2];
+        self.stages = [realone, bigboi, ceiling2, pit1, pit3, ceiling1, pit2];
         self.pictures = []
 
         self.dead = False
@@ -262,7 +283,7 @@ class PlatformerModel(object):
         self.enemy_projectiles.update(self.dt, self.stage())
         self.friendly_projectiles.update(self.dt, self.stage())
 
-        pygame.sprite.groupcollide(self.platforms, self.friendly_projectiles, False, True, collided = pygame.sprite.collide_rect_ratio(1))
+        pygame.sprite.groupcollide(self.platforms, self.friendly_projectiles, False, True, collided = pygame.sprite.collide_rect_ratio(.98))
 
         pygame.sprite.groupcollide(self.enemies, self.friendly_projectiles, True, True, collided = pygame.sprite.collide_rect_ratio(.95))
 

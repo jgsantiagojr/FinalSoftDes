@@ -104,7 +104,7 @@ class Avatar(DynamicEntity):
                 self.trajectory = Vector2(1,0)
                 print(self.movement + ' ' + self.facing)
                 self.collisions.remove('LEFT')
-                self.vy = -1.25
+                self.vy = -2
                 self.vx = self.sensitivity * 2
             elif 'RIGHT' in self.collisions:
                 self.movement = 'JUMP'
@@ -113,7 +113,7 @@ class Avatar(DynamicEntity):
                 self.facing = 'LEFT'
                 self.trajectory = Vector2(-1,0)
                 self.collisions.remove('RIGHT')
-                self.vy = -1.25
+                self.vy = -2
                 self.vx = -self.sensitivity * 2
             #Dropping down from ceiling
             elif 'TOP' in self.collisions:
