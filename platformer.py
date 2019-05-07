@@ -2,12 +2,13 @@
 """
 This is a platformer game based on keyboard contol for our Software Design project.
 
-@author: Michael Remley and Skye Ozga
+@author: Skye Ozga, Mason Grabowski, Jerry Goss, Jamie Santiago
 """
 
 import time
 import pygame, sys
 import avatar, platform, stage
+from entity import Entity, DynamicEntity
 from model import PlatformerModel
 from view import PyGameWindowView
 from keyboard_controller import PyGameKeyboardController
@@ -23,23 +24,36 @@ def start_game(size):
     model = PlatformerModel(size, clock)
     print(model)
     view = PyGameWindowView(model, size)
+
+
     controller = PyGameKeyboardController(model)
 
-
+    started = False
     running = True
     while running:
         for event in pygame.event.get():
-
             if event.type == pygame.locals.QUIT:
                 running = False
             if controller.handle_keys(pygame.key.get_pressed()):
-                running = False
+                started = True
 
-        if model.update():
-            running = False
-        view.draw()
+        if started:
+            if not model.dead:
+                if model.update() == 'QUIT':
+                    running = False
+                view.draw()
+                time.sleep(.001)
+            else:
+                view.screen.blit(pygame.image.load('death-screen.png'),(0,0))
+                pygame.display.update()
+                time.sleep(.5)
+                if controller.handle_keys(pygame.key.get_pressed()):
+                    model.reset()
+        else:
+            view.screen.blit(pygame.image.load('title-screen.png'),(0,0))
+            pygame.display.update()
 
-        time.sleep(.001)
+
 
     pygame.quit()
     sys.exit

@@ -24,6 +24,8 @@ class Entity(pygame.sprite.Sprite):
 
         self.frame = 0
 
+        self.rect = self.rects[self.frame]
+
         self.x = x
         self.y = y
 
@@ -39,7 +41,7 @@ class Entity(pygame.sprite.Sprite):
     def mask(self):
         return self.masks[self.frame]
 
-    def rect(self):
+    def getrect(self):
         self.rects[self.frame].center = (self.x, self.y)
         return self.rects[self.frame]
 
@@ -60,6 +62,10 @@ class Entity(pygame.sprite.Sprite):
 
     def bottom(self):
         return self.y + self.rects[self.frame].height/2
+
+    def update(self):
+        self.rects[self.frame].center = (self.x, self.y)
+        self.rect = self.rects[self.frame]
 
     def draw(self, camera, screen):
         """

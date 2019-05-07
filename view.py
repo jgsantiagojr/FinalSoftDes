@@ -19,19 +19,7 @@ class PyGameWindowView(object):
     def draw(self):
         """ Draw the current game objects to the screen """
         # Black background
-        self.screen.fill(pygame.Color(0,0,0))
-
-        # Draw white platforms in model
-        '''
-        for platform in self.model.stages[self.model.level].platforms:
-
-            pygame.draw.rect(self.screen,
-                             pygame.Color(255, 255, 255),
-                             pygame.Rect(platform.x-                           self.model.camera.left,
-                                         platform.y- self.model.camera.top,
-                                         platform.width,
-                                         platform.height))
-        '''
+        self.screen.fill(pygame.Color(255,255,255))
 
         for p in self.model.stage().platforms:
             p.draw(self.model.camera, self.screen)
@@ -45,19 +33,7 @@ class PyGameWindowView(object):
         for p in self.model.friendly_projectiles:
             p.draw(self.model.camera,self.screen)
 
-            #platform.draw(self.model.topleft, self.screen)
-        # Draw avatar as red square
-        '''
-        pygame.draw.rect(self.screen,
-                         pygame.Color(255, 0, 0),
-                         pygame.Rect(self.model.avatar.x-                           self.model.topleft[0],
-                                     self.model.avatar.y- self.model.topleft[1],
-                                     self.model.avatar.width,
-                                     self.model.avatar.height))
-        '''
         self.model.avatar.draw(self.model.camera, self.screen)
-        #model.avatar.draw(self.model.topleft, self.screen)
-        #print(self.model.avatar.x)
-        #print(self.model.left_edge)
+
         # Call update so things actually change
         pygame.display.update()

@@ -2,26 +2,88 @@ from platform import Platform
 from avatar import Avatar
 from stage import Stage
 from enemy import StaticEnemy
+from entity import Entity, DynamicEntity
 import pygame
 
 size = (1920, 1080)
 screenbottom = 980
 
 
-AvatarImages = ['Sprites/run_l/run_l1.png', 'Sprites/run_l/run_l2.png',
+AvatarImages = ['Sprites/jump_l/jump_l1.png', 'Sprites/jump_l/jump_l2.png',
+                'Sprites/jump_l/jump_l3.png', 'Sprites/jump_l/jump_l4.png',
+                'Sprites/jump_l/jump_l5.png', 'Sprites/jump_r/jump_r1.png',
+                'Sprites/jump_r/jump_r2.png', 'Sprites/jump_r/jump_r3.png',
+                'Sprites/jump_r/jump_r4.png', 'Sprites/jump_r/jump_r5.png',
+                'Sprites/run_l/run_l1.png', 'Sprites/run_l/run_l2.png',
                 'Sprites/run_l/run_l3.png', 'Sprites/run_l/run_l4.png',
                 'Sprites/run_l/run_l5.png', 'Sprites/run_l/run_l6.png',
                 'Sprites/run_l/run_l7.png', 'Sprites/run_l/run_l8.png',
+                'Sprites/run_l/run_l9.png', 'Sprites/run_l/run_l10.png',
                 'Sprites/run_r/run_r1.png', 'Sprites/run_r/run_r2.png',
                 'Sprites/run_r/run_r3.png', 'Sprites/run_r/run_r4.png',
                 'Sprites/run_r/run_r5.png', 'Sprites/run_r/run_r6.png',
-                'Sprites/run_r/run_r7.png', 'Sprites/run_r/run_r8.png', ]
+                'Sprites/run_r/run_r7.png', 'Sprites/run_r/run_r8.png',
+                'Sprites/run_r/run_r9.png', 'Sprites/run_r/run_r10.png',
+                'Sprites/standing_l/standing_l.png',
+                'Sprites/standing_r/standing_r.png',
+                'Sprites/run_l/run_l1t1.png', 'Sprites/run_l/run_l2t1.png',
+                'Sprites/run_l/run_l3t1.png', 'Sprites/run_l/run_l4t1.png',
+                'Sprites/run_l/run_l5t1.png', 'Sprites/run_l/run_l6t1.png',
+                'Sprites/run_l/run_l7t1.png', 'Sprites/run_l/run_l8t1.png',
+                'Sprites/run_l/run_l9t1.png', 'Sprites/run_l/run_l10t1.png',
+                'Sprites/run_r/run_r1t1.png', 'Sprites/run_r/run_r2t1.png',
+                'Sprites/run_r/run_r3t1.png', 'Sprites/run_r/run_r4t1.png',
+                'Sprites/run_r/run_r5t1.png', 'Sprites/run_r/run_r6t1.png',
+                'Sprites/run_r/run_r7t1.png', 'Sprites/run_r/run_r8t1.png',
+                'Sprites/run_r/run_r9t1.png', 'Sprites/run_r/run_r10t1.png',
+                'Sprites/standing_l/standing_lt1.png',
+                'Sprites/standing_r/standing_rt1.png',
+                'Sprites/run_l/run_l1t2.png', 'Sprites/run_l/run_l2t2.png',
+                'Sprites/run_l/run_l3t2.png', 'Sprites/run_l/run_l4t2.png',
+                'Sprites/run_l/run_l5t2.png', 'Sprites/run_l/run_l6t2.png',
+                'Sprites/run_l/run_l7t2.png', 'Sprites/run_l/run_l8t2.png',
+                'Sprites/run_l/run_l9t2.png', 'Sprites/run_l/run_l10t2.png',
+                'Sprites/run_r/run_r1t2.png', 'Sprites/run_r/run_r2t2.png',
+                'Sprites/run_r/run_r3t2.png', 'Sprites/run_r/run_r4t2.png',
+                'Sprites/run_r/run_r5t2.png', 'Sprites/run_r/run_r6t2.png',
+                'Sprites/run_r/run_r7t2.png', 'Sprites/run_r/run_r8t2.png',
+                'Sprites/run_r/run_r9t2.png', 'Sprites/run_r/run_r10t2.png',
+                'Sprites/standing_l/standing_lt2.png',
+                'Sprites/standing_r/standing_rt2.png',
+                'Sprites/run_l/run_l1t3.png', 'Sprites/run_l/run_l2.png',
+                'Sprites/run_l/run_l3t3.png', 'Sprites/run_l/run_l4.png',
+                'Sprites/run_l/run_l5t3.png', 'Sprites/run_l/run_l6.png',
+                'Sprites/run_l/run_l7t3.png', 'Sprites/run_l/run_l8.png',
+                'Sprites/run_l/run_l9t3.png', 'Sprites/run_l/run_l10.png',
+                'Sprites/run_r/run_r1t3.png', 'Sprites/run_r/run_r2.png',
+                'Sprites/run_r/run_r3t3.png', 'Sprites/run_r/run_r4.png',
+                'Sprites/run_r/run_r5t3.png', 'Sprites/run_r/run_r6.png',
+                'Sprites/run_r/run_r7t3.png', 'Sprites/run_r/run_r8.png',
+                'Sprites/run_r/run_r9t3.png', 'Sprites/run_r/run_r10.png',
+                'Sprites/standing_l/standing_lt3.png',
+                'Sprites/standing_r/standing_rt3.png']
 
-EnemyImages = ['Sprites/standing_l/redstanding_l.png']
+EnemyImages = ['Sprites/standing_l/redstanding_l.png',
+               'Sprites/standing_r/redstanding_r.png',
+               'Sprites/standing_l/redstanding_lt1.png',
+               'Sprites/standing_r/redstanding_rt1.png',
+               'Sprites/standing_l/redstanding_lt2.png',
+               'Sprites/standing_r/redstanding_rt2.png',
+               'Sprites/standing_l/redstanding_lt3.png',
+               'Sprites/standing_r/redstanding_rt3.png']
 
 BulletImages = ['bullet.png']
 
-ShurikenImages = ['tiny_shuriken.png']
+ShurikenImages = ['Sprites/shruiken/shruiken_1.png',
+                  'Sprites/shruiken/shruiken_2.png',
+                  'Sprites/shruiken/shruiken_3.png',
+                  'Sprites/shruiken/shruiken_4.png',
+                  'Sprites/shruiken/shruiken_5.png',
+                  'Sprites/shruiken/shruiken_6.png',
+                  'Sprites/shruiken/shruiken_7.png',
+                  'Sprites/shruiken/shruiken_8.png']
+
+TitleImages = ['title-screen.png']
 
 bigboi = Stage((10000,10200),
                [Platform(200, 10000, 0, 9960),
@@ -126,8 +188,11 @@ class PlatformerModel(object):
         self.view_height = size[1]
         self.level = 0
         self.stages = [bigboi, ceiling2, pit1, pit3, ceiling1, pit2];
+        self.pictures = []
 
+        self.dead = False
         self.avatar = Avatar(400, 9000, AvatarImages, ShurikenImages, size)
+        self.avatar_group = pygame.sprite.GroupSingle(self.avatar)
 
         self.enemies = pygame.sprite.Group()
         for e in self.stages[self.level].enemies:
@@ -137,8 +202,6 @@ class PlatformerModel(object):
         for p in self.stages[self.level].platforms:
             self.platforms.add(p)
 
-
-
         self.enemy_projectiles = pygame.sprite.Group()
 
         self.friendly_projectiles = pygame.sprite.Group()
@@ -146,6 +209,23 @@ class PlatformerModel(object):
         self.camera = Camera(self.avatar.x,self.avatar.y, size)
 
         self.clock = clock
+
+    def reset(self):
+        self.dead = False
+        self.avatar = Avatar(400, 9000, AvatarImages, ShurikenImages, size)
+        self.avatar_group = pygame.sprite.GroupSingle(self.avatar)
+
+        self.enemies = pygame.sprite.Group()
+        for e in self.stages[self.level].enemies:
+            self.enemies.add(e)
+
+        self.platforms = pygame.sprite.Group()
+        for p in self.stages[self.level].platforms:
+            self.platforms.add(p)
+
+        self.enemy_projectiles = pygame.sprite.Group()
+
+        self.friendly_projectiles = pygame.sprite.Group()
 
     def contains_point(self, point):
         if 0 < point[0] and point[0] < self.width():
@@ -179,26 +259,23 @@ class PlatformerModel(object):
 
         self.enemies.update(self.avatar, self.stage(), self.enemy_projectiles, self.dt)
 
-        self.enemy_projectiles.update(self.dt)
-        self.friendly_projectiles.update(self.dt)
+        self.enemy_projectiles.update(self.dt, self.stage())
+        self.friendly_projectiles.update(self.dt, self.stage())
+
+        pygame.sprite.groupcollide(self.platforms, self.friendly_projectiles, False, True, collided = pygame.sprite.collide_rect_ratio(1))
+
+        pygame.sprite.groupcollide(self.enemies, self.friendly_projectiles, True, True, collided = pygame.sprite.collide_rect_ratio(.95))
+
+        if pygame.sprite.groupcollide(self.avatar_group, self.enemy_projectiles, False, True, collided = pygame.sprite.collide_rect_ratio(.75)):
+            self.dead = True
+
+        pygame.sprite.groupcollide(self.platforms, self.enemy_projectiles, False, True, collided = pygame.sprite.collide_rect_ratio(1))
+
+
 
         if self.stages[self.level].completed:
             level += 1
 
-            """
-            for p in self.platforms:
-                p.kill()
-            for e in self.enemies:
-                e.kill()
-            for e in self.enemyprojectiles:
-                e.kill()
-            for f in self.friendlyprojectiles:
-                f.kill()
-            for p in self.stages[level].platforms:
-                self.platforms.add(p)
-            for e in self.stages[level].enemies:
-                self.enemies.add(e)
-            """
 
         self.camera.update(self.avatar.x, self.avatar.y, self.stage())
 

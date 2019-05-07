@@ -11,7 +11,7 @@ class StaticEnemy(Entity):
 
         self.health = 1
         self.clock = 0
-        self.cooldown = 200
+        self.cooldown = 500
 
         self.handpos = Vector2(x, y)
         self.trajectory = Vector2(1,0)
@@ -25,8 +25,8 @@ class StaticEnemy(Entity):
         self.trajectory = trajectory/trajectory.length()
 
         testpoint = Vector2(self.handpos)
-        stepsize = 1
-        '''
+        stepsize = 10
+
         while stage.contains_point(testpoint):
             for p in stage.platforms:
                 if p.contains_point(testpoint):
@@ -34,9 +34,10 @@ class StaticEnemy(Entity):
                 elif avatar.contains_point(testpoint):
                     return True
 
+
             testpoint += stepsize * self.trajectory
-        '''
-        return True
+
+        return False
 
 
 
@@ -48,6 +49,7 @@ class StaticEnemy(Entity):
         return False
 
     def update(self, avatar, stage, enemy_projectiles: pygame.sprite.Group, dt):
+        super().update()
         if self.aim(avatar, stage):
             if self.shoot(dt):
                 enemy_projectiles.add(Bullet(self.handpos.x, self.handpos.y, self.trajectory, self.bullet_images))
