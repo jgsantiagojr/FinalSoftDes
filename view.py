@@ -19,7 +19,7 @@ class PyGameWindowView(object):
     def draw(self):
         """ Draw the current game objects to the screen """
         # Black background
-        self.screen.fill(pygame.Color(0,0,0))
+        self.screen.fill(pygame.Color(255,255,255))
 
         # Draw white platforms in model
         '''

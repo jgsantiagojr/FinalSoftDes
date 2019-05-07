@@ -286,9 +286,6 @@ class Avatar(DynamicEntity):
             self.movement = 'STANDING'
 
 
-
-        print([self.movement, self.facing])
-
         self.handpos = Vector2(self.xnew, self.ynew)
 
         if self.shoot:
