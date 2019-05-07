@@ -190,6 +190,7 @@ class PlatformerModel(object):
         self.stages = [bigboi, ceiling2, pit1, pit3, ceiling1, pit2];
         self.pictures = []
 
+        self.dead = False
         self.avatar = Avatar(400, 9000, AvatarImages, ShurikenImages, size)
         self.avatar_group = pygame.sprite.GroupSingle(self.avatar)
 
@@ -201,8 +202,6 @@ class PlatformerModel(object):
         for p in self.stages[self.level].platforms:
             self.platforms.add(p)
 
-
-
         self.enemy_projectiles = pygame.sprite.Group()
 
         self.friendly_projectiles = pygame.sprite.Group()
@@ -210,6 +209,23 @@ class PlatformerModel(object):
         self.camera = Camera(self.avatar.x,self.avatar.y, size)
 
         self.clock = clock
+
+    def reset(self):
+        self.dead = False
+        self.avatar = Avatar(400, 9000, AvatarImages, ShurikenImages, size)
+        self.avatar_group = pygame.sprite.GroupSingle(self.avatar)
+
+        self.enemies = pygame.sprite.Group()
+        for e in self.stages[self.level].enemies:
+            self.enemies.add(e)
+
+        self.platforms = pygame.sprite.Group()
+        for p in self.stages[self.level].platforms:
+            self.platforms.add(p)
+
+        self.enemy_projectiles = pygame.sprite.Group()
+
+        self.friendly_projectiles = pygame.sprite.Group()
 
     def contains_point(self, point):
         if 0 < point[0] and point[0] < self.width():
@@ -250,7 +266,8 @@ class PlatformerModel(object):
 
         pygame.sprite.groupcollide(self.enemies, self.friendly_projectiles, True, True, collided = pygame.sprite.collide_rect_ratio(.95))
 
-        pygame.sprite.groupcollide(self.avatar_group, self.enemy_projectiles, False, True, collided = pygame.sprite.collide_rect_ratio(.75))
+        if pygame.sprite.groupcollide(self.avatar_group, self.enemy_projectiles, False, True, collided = pygame.sprite.collide_rect_ratio(.75)):
+            self.dead = True
 
         pygame.sprite.groupcollide(self.platforms, self.enemy_projectiles, False, True, collided = pygame.sprite.collide_rect_ratio(1))
 

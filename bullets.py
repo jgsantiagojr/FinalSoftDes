@@ -35,7 +35,7 @@ class Projectile(DynamicEntity):
 class Bullet(Projectile):
 	def __init__(self, x, y, trajectory, images):
 		super().__init__(x, y, trajectory, images)
-		self.speed = self.speed*2
+		self.speed = self.speed
 
 
 class Shuriken(Projectile):

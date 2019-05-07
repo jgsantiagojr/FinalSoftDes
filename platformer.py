@@ -38,10 +38,17 @@ def start_game(size):
                 started = True
 
         if started:
-            if model.update():
-                running = False
-            view.draw()
-            time.sleep(.001)
+            if not model.dead:
+                if model.update() == 'QUIT':
+                    running = False
+                view.draw()
+                time.sleep(.001)
+            else:
+                view.screen.blit(pygame.image.load('death-screen.png'),(0,0))
+                pygame.display.update()
+                time.sleep(.5)
+                if controller.handle_keys(pygame.key.get_pressed()):
+                    model.reset()
         else:
             view.screen.blit(pygame.image.load('title-screen.png'),(0,0))
             pygame.display.update()
