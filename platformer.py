@@ -2,7 +2,7 @@
 """
 This is a platformer game based on keyboard contol for our Software Design project.
 
-@author: Michael Remley and Skye Ozga
+@author: Skye Ozga, Mason Grabowski, Jerry Goss, Jamie Santiago
 """
 
 import time
@@ -24,7 +24,6 @@ def start_game(size):
     print(model)
     view = PyGameWindowView(model, size)
     controller = PyGameKeyboardController(model)
-
 
     running = True
     while running:
