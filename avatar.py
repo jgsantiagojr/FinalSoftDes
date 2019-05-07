@@ -1,8 +1,10 @@
 import pygame
 from entity import Entity, DynamicEntity
+from pygame import Vector2
+from bullets import Projectile, Shuriken
 
 class Avatar(DynamicEntity):
-    def __init__(self, x, y, images, screensize):
+    def __init__(self, x, y, images, weaponimages, screensize):
         ''' Initialize an Avatar with the specified height, width,
             and position (x,y) '''
 
@@ -22,8 +24,13 @@ class Avatar(DynamicEntity):
         self.frame = 8
         self.frame_time = 0
 
+        self.handpos = Vector2(self.x,self.y)
+
+        self.weaponimages = weaponimages
         self.cooldown = 200
         self.shot_clock = 0
+        self.shoot = False
+        self.trajectory = Vector2(1,0)
 
     def addinput(self, input):
         '''Takes an input from the controller and adds it to the
@@ -36,7 +43,7 @@ class Avatar(DynamicEntity):
         if input in self.inputs:
             self.inputs.remove(input)
 
-    def controls(self):
+    def controls(self, dt):
         '''Handles inputs from the aavatar's list for input controls, accounting for collisions'''
         if 'LEFT' in self.inputs and 'RIGHT' in self.inputs:
             self.vx = 0
@@ -70,6 +77,14 @@ class Avatar(DynamicEntity):
             elif 'TOP' in self.collisions:
                 self.collisions.remove('TOP')
                 self.vy+=.002
+        if 'ATTACK' in self.inputs:
+            self.shot_clock += dt
+            if self.shot_clock > self.cooldown:
+                self.shot_clock = self.shot_clock % self.cooldown
+                self.shoot = True
+            else:
+                self.shoot = False
+
 
     def check_collisions(self, dt, stage):
         '''Checks for collisions between the avatar and the platforms, and attempts to resolve them'''
@@ -108,12 +123,32 @@ class Avatar(DynamicEntity):
                 self.xnew = p.left() - self.width()/2
                 leftnew = p.left() - self.width()
                 self.vx = 0
-            elif p.contains_point((rightnew,topnew)) and p.contains_point((rightnew,bottomnew)):
+            elif p.contains_point((leftnew,topnew)) and p.contains_point((leftnew,bottomnew)):
                 self.collisions.append('LEFT')
                 leftnew = p.right()
                 self.xnew = p.right() + self.width()/2
                 rightnew = p.right() + self.width()
                 self.vx = 0
+            if p.contains_point(((rightnew,topnew))):
+                self.collisions.append('RIGHT')
+                rightnew = p.left()
+                self.xnew = p.left() - self.width()/2
+                leftnew = p.left() - self.width()
+                self.vx = 0
+            elif p.contains_point((leftnew,topnew)):
+                self.collisions.append('LEFT')
+                leftnew = p.right()
+                self.xnew = p.right() + self.width()/2
+                rightnew = p.right() + self.width()
+                self.vx = 0
+            elif p.contains_point((leftnew,bottomnew)) or p.contains_point((rightnew,bottomnew)):
+                self.collisions.append('BOTTOM')
+                #Correct ynew to avoid overlap
+                bottomnew = p.top()
+                self.ynew = p.top() - self.height()/2
+                topnew = p.top() - self.height()
+                #Stop Motion
+                self.vy = 0
 
         #prevents avatar from leaving bottom of the stage
         if bottomnew > stage.height:
@@ -129,7 +164,7 @@ class Avatar(DynamicEntity):
         self.frame_time = self.frame_time % cycle_time
         self.frame = cycle_index + (self.frame_time*cycle_length)//cycle_time
 
-    def update(self, dt, stage):
+    def update(self, dt, stage, friendly_projectiles: pygame.sprite.Group):
         ''' update the position of the Avatar while taking physics, collisions, and controls into account'''
 
         self.collisions = []
@@ -149,7 +184,16 @@ class Avatar(DynamicEntity):
         self.check_collisions(dt, stage)
         if len(self.collisions)>0:
             print(self.collisions)
-        self.controls()
+        self.controls(dt)
+
+        self.handpos = Vector2(self.xnew, self.ynew)
+
+        if self.shoot:
+            if 'LEFT' in self.inputs:
+                self.trajectory = Vector2(-1,0)
+            elif 'RIGHT' in self.inputs:
+                self.trajectory = Vector2(1,0)
+            friendly_projectiles.add(Shuriken(self.handpos.x, self.handpos.y, self.trajectory, self.weaponimages))
 
         #update avatar position
         self.x = self.xnew

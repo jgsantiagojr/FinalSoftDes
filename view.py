@@ -42,6 +42,9 @@ class PyGameWindowView(object):
         for p in self.model.enemy_projectiles:
             p.draw(self.model.camera,self.screen)
 
+        for p in self.model.friendly_projectiles:
+            p.draw(self.model.camera,self.screen)
+
             #platform.draw(self.model.topleft, self.screen)
         # Draw avatar as red square
         '''

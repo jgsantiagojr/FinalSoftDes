@@ -22,6 +22,11 @@ class PyGameKeyboardController(object):
             self.model.avatar.addinput('RIGHT')
         else:
             self.model.avatar.removeinput('RIGHT')
+        # Move right if right arrow or d are pressed
+        if keys[pygame.K_x] or keys[pygame.K_f]:
+            self.model.avatar.addinput('ATTACK')
+        else:
+            self.model.avatar.removeinput('ATTACK')
         # Jump if space, up arrow, or w are pressed
         if keys[pygame.K_SPACE] or keys[pygame.K_UP] or keys[pygame.K_w]:
             self.model.avatar.addinput('JUMP')

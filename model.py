@@ -8,18 +8,20 @@ size = (1920, 1080)
 screenbottom = 980
 
 
-AvatarImages = ['run/run_l1.png', 'run/run_l2.png',
-                'run/run_l3.png', 'run/run_l4.png',
-                'run/run_l5.png', 'run/run_l6.png',
-                'run/run_l7.png', 'run/run_l8.png',
-                'run/run_r1.png', 'run/run_r2.png',
-                'run/run_r3.png', 'run/run_r4.png',
-                'run/run_r5.png', 'run/run_r6.png',
-                'run/run_r7.png', 'run/run_r8.png', ]
+AvatarImages = ['Sprites/run_l/run_l1.png', 'Sprites/run_l/run_l2.png',
+                'Sprites/run_l/run_l3.png', 'Sprites/run_l/run_l4.png',
+                'Sprites/run_l/run_l5.png', 'Sprites/run_l/run_l6.png',
+                'Sprites/run_l/run_l7.png', 'Sprites/run_l/run_l8.png',
+                'Sprites/run_r/run_r1.png', 'Sprites/run_r/run_r2.png',
+                'Sprites/run_r/run_r3.png', 'Sprites/run_r/run_r4.png',
+                'Sprites/run_r/run_r5.png', 'Sprites/run_r/run_r6.png',
+                'Sprites/run_r/run_r7.png', 'Sprites/run_r/run_r8.png', ]
 
-EnemyImages = ['redstanding.png']
+EnemyImages = ['Sprites/standing_l/redstanding_l.png']
 
 BulletImages = ['bullet.png']
+
+ShurikenImages = ['tiny_shuriken.png']
 
 bigboi = Stage((10000,10200),
                [Platform(200, 10000, 0, 9960),
@@ -125,7 +127,7 @@ class PlatformerModel(object):
         self.level = 0
         self.stages = [bigboi, ceiling2, pit1, pit3, ceiling1, pit2];
 
-        self.avatar = Avatar(400, 9000, AvatarImages, size)
+        self.avatar = Avatar(400, 9000, AvatarImages, ShurikenImages, size)
 
         self.enemies = pygame.sprite.Group()
         for e in self.stages[self.level].enemies:
@@ -171,13 +173,14 @@ class PlatformerModel(object):
             self.dt = self.dt*0.1
 
         #Update Avatar
-        self.avatar.update(self.dt, self.stage())
+        self.avatar.update(self.dt, self.stage(), self.friendly_projectiles)
         if 'QUIT' in self.avatar.inputs:
             return True
 
         self.enemies.update(self.avatar, self.stage(), self.enemy_projectiles, self.dt)
 
         self.enemy_projectiles.update(self.dt)
+        self.friendly_projectiles.update(self.dt)
 
         if self.stages[self.level].completed:
             level += 1
