@@ -5,13 +5,19 @@
 A Dichotomic Escape Platformer Game with the following features:'
 - Artful Aesthetic which highlights the plot of the game
 - Smooth engine written by our own Skye Ozga
-- Multiple Playing Styles in the form of multiple combat types available to the user
 - Formidable foes
-- A mix of combat and problem solving that will leave you speechless
+
+The core inspiration of our game was taken from the 9/10 rated game, SUPERHOT...
+
+"TIME ONLY MOVES WHEN YOU MOVE"
+
+And that's where we started. We knew the limitations, and we didn't know how to make a game. We had little experience with gaming in python and we definitely weren't ready to us a 3D graphics processing engine (like Unity). We chose to design a 2D platformer and incorporate the time mechanic from SUPERHOT into our game.
+
+The game has enemies that target you, the player, and you have to use the controls and the time mechanic to your advantage. You are equipped with shurikens and you have to dodge to perpetually ESCAPE from enemy fire. Your Only opition is to Escape.
 
 Meant to bring the user a great sense of fun, curiousity, and wonder. As well as question how much we can trust the world in front of us.
 
-NECESSARY: PYGAME INSTALLED
+#### _NECESSARY: PYGAME INSTALLED_
 If you don't have pygame installed you can install it by following the directions below:
 
  Visit this link https://www.pygame.org/download.shtml or enter pip install pygame into your terminal
