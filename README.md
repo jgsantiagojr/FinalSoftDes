@@ -9,7 +9,7 @@ A Dichotomic Escape Platformer Game with the following features:'
 - Formidable foes
 - A mix of combat and problem solving that will leave you speechless
 
-Meant to bring the user a great sense of fun, curiousity, and wonder. As well as question how much we can trust the world in front of us. 
+Meant to bring the user a great sense of fun, curiousity, and wonder. As well as question how much we can trust the world in front of us.
 
 NECESSARY: PYGAME INSTALLED
 If you don't have pygame installed you can install it by following the directions below:
@@ -36,17 +36,15 @@ They knew they wanted to make a game, but they had to decide what kind. After so
 
 These 2 things were enough for them to get started, Skye on the engine and overarching structure, Jamie worked on weapons, Jerry on enemies, and Mason on graphics and animations. The game was afoot, and things were looking good.
 
-However road bumps were hit, due to other commitments Mason, and Skye were out of state for a week, they were busy in competitions they spent months preparing for. During this time Jamie and Jerry took a bit of a break from their technical parts, and used the first Architectural Review to get some consumer feedback. They asked their class what types of games they play and what they like to see in a game, as well as for any concerns or tips that came up. 
+However road bumps were hit, due to other commitments Mason, and Skye were out of state for a week, they were busy in competitions they spent months preparing for. During this time Jamie and Jerry took a bit of a break from their technical parts, and used the first Architectural Review to get some consumer feedback. They asked their class what types of games they play and what they like to see in a game, as well as for any concerns or tips that came up.
 
 After the return of Skye and Mason, they got back together to discuss what came up. And from this came up with the plot of the game:
     __An escape game, where the user’s perception of reality is warped, and they must determine the truth__
-The existence of this thesis is what made it possible for Mason to really start specifying his graphics for the game, as well as gave all of them an image of what the game will look like in it’s end stages. 
+The existence of this thesis is what made it possible for Mason to really start specifying his graphics for the game, as well as gave all of them an image of what the game will look like in it’s end stages.
 As all the pieces come together, the crew is sliding closer to the edge of their seats, overflowing with excitement to release this game, and see all of your reactions, so stay tuned!
 
 But to wet your whistle a bit, here are some testimonials from the crew about what they are most excited/proud of and a little teaser trailer, including a how-its-made doc.
 
-Hi I'm Jamie, and I can't wait for you all to play this game. I'm really excited about the plot, and aethestics that Mason put together. I hope you guys enjoy it!
+Hi I'm Jamie, and I can't wait for you all to play this game. I'm really excited about the plot, and aesthetics that Mason put together. I hope you guys enjoy it!
 
-
-
-
+Hello all, I'm Jerry! I can't wait to play our game and see others play it as well! I'm excited about seeing all the moving pieces of it regarding weapons and sprite motion and the general vibe the game stirs in a player (that isn't biased like me).

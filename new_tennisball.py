@@ -30,12 +30,13 @@ pygame.mixer.init() #handles sound effects/music
 
 clock = pygame.time.Clock()
 
-class Machine(pygame.sprite.Sprite):
+# class Machine(pygame.sprite.Sprite):
+class Machine(DynamicEntity):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = pygame.Surface((50, 50))
-        self.image.fill(turquoise)
+        self.image.fill(white)
 
         self.rect = self.image.get_rect()
 
@@ -58,7 +59,8 @@ class Machine(pygame.sprite.Sprite):
         if self.rect.top > height:
             self.rect.bottom = 0
 
-class Shooterthing(pygame.sprite.Sprite):
+# class Shooterthing(pygame.sprite.Sprite):
+class Shooterthing(DynamicEntity):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
 
@@ -68,7 +70,7 @@ class Shooterthing(pygame.sprite.Sprite):
         self.orig_image = self.image
         self.image.convert_alpha(self.image)
 
-        self.image.fill(blue)
+        self.image.fill(green)
 
         self.rect = self.image.get_rect()
 
@@ -96,7 +98,8 @@ class Shooterthing(pygame.sprite.Sprite):
         self.direction = self.trajectory.rotate(self.angle)
         # win.blit(self.image, (width / 2, height / 2))
 
-class Ball(pygame.sprite.Sprite):
+# class Ball(pygame.sprite.Sprite):
+class Ball(DynamicEntity):
     def __init__(self, pos, direction, color, radius):
         super().__init__()
         self.image = pygame.Surface((10, 10))
@@ -161,7 +164,7 @@ def main():
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_x]: #to be shot automatically
-            if len(tennisballs) < 1000:
+            if len(tennisballs) < 3:
                 tennisballs.append(Ball(shooter.rect.center, shooter.direction, green, 5))
             shootloop += 1
 
@@ -172,7 +175,7 @@ def main():
             shooter.angle -= 9
 
         #update
-        win.fill(red)
+        win.fill(black)
         all_sprites.update(win)
         shooter.update(win)
 
