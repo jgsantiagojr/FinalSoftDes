@@ -14,7 +14,7 @@ class Avatar(DynamicEntity):
         self.sensitivity = 1
         self.inputs = []
         self.collisions = []
-        self.movement = 'RUN'
+        self.movement = 'STANDING'
         self.facing = 'RIGHT'
         self.screensize = screensize
 
@@ -33,7 +33,7 @@ class Avatar(DynamicEntity):
                             'STANDING LEFT': (30,1,1),
                             'STANDING RIGHT': (31,1,1)}
 
-        self.frame = 30
+        self.frame = 31
         self.frame_time = 0
 
         self.handpos = Vector2(self.x,self.y)
@@ -252,6 +252,8 @@ class Avatar(DynamicEntity):
             else:
                 self.shot_clock = self.shot_clock % self.cooldown
                 self.frame = int((self.frame-10)%22 + 32 + (22*((self.shot_clock*3)//self.cooldown)))
+                if not self.frame in range(len(self.images)):
+                    self.frame = int(cycle_index)
         if not self.frame in range(len(self.images)):
             self.frame = int(cycle_index)
 

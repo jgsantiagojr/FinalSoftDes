@@ -124,6 +124,7 @@ realone = Stage((2460, 2160),
                  StaticEnemy(900, 1999,StaticEnemyImages, BulletImages),
                  StaticEnemy(1500, 1999,StaticEnemyImages, BulletImages),
                  StaticEnemy(2120, 1699,StaticEnemyImages, BulletImages)],
+                 spawnpoint = (60,1999),
                  exitpoint = Entity(284,191, ['fin.png']))
 
 
@@ -177,10 +178,11 @@ class PlatformerModel(object):
         self.level = 0
         self.stages = [realone, bigboi];
         self.stages[self.level].completed = False
+        self.spawnpoint = self.stages[self.level].spawnpoint
         self.pictures = []
 
         self.dead = False
-        self.avatar = Avatar(400, 9000, AvatarImages, ShurikenImages, size)
+        self.avatar = Avatar(self.spawnpoint[0], self.spawnpoint[1], AvatarImages, ShurikenImages, size)
         self.avatar_group = pygame.sprite.GroupSingle(self.avatar)
 
         self.enemies = pygame.sprite.Group()

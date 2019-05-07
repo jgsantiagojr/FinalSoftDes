@@ -4,6 +4,7 @@ class Stage(object):
         self.size = size
         self.platforms = platforms
         self.exitpoint = exitpoint
+        self.spawnpoint = spawnpoint
         self.enemies = enemies
         self.backgrounds = backgrounds
         self.width = size[0]

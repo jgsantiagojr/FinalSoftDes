@@ -45,7 +45,7 @@ def start_game(size):
                     view.draw()
                     time.sleep(.001)
                 else:
-                    view.screen.blit(pygame.image.load('victory.png')),(0,0))
+                    view.screen.blit(pygame.image.load('victory.png'),(0,0))
                     pygame.display.update()
                     time.sleep(.1)
                     if controller.handle_keys(pygame.key.get_pressed()):
