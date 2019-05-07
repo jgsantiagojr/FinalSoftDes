@@ -45,6 +45,8 @@ As all the pieces come together, the crew is sliding closer to the edge of their
 
 But to wet your whistle a bit, here are some testimonials from the crew about what they are most excited/proud of and a little teaser trailer, including a how-its-made doc.
 
+Hi I'm Jamie, and I can't wait for you all to play this game. I'm really excited about the plot, and aethestics that Mason put together. I hope you guys enjoy it!
+
 
 
 
