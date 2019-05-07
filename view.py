@@ -24,6 +24,8 @@ class PyGameWindowView(object):
         for p in self.model.stage().platforms:
             p.draw(self.model.camera, self.screen)
 
+        self.model.stage().exitpoint.draw(self.model.camera, self.screen)
+
         for e in self.model.enemies:
             e.draw(self.model.camera,self.screen)
 
@@ -32,6 +34,8 @@ class PyGameWindowView(object):
 
         for p in self.model.friendly_projectiles:
             p.draw(self.model.camera,self.screen)
+
+
 
         self.model.avatar.draw(self.model.camera, self.screen)
 

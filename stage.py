@@ -1,8 +1,9 @@
 class Stage(object):
-    def __init__(self, size, platforms, enemies = [], spawnpoint = [], backgrounds = []):
+    def __init__(self, size, platforms, enemies = [], spawnpoint = [], backgrounds = [], exitpoint = []):
         '''Generates a Stage object from a list of platforms'''
         self.size = size
         self.platforms = platforms
+        self.exitpoint = exitpoint
         self.enemies = enemies
         self.backgrounds = backgrounds
         self.width = size[0]

@@ -19,7 +19,7 @@ class Avatar(DynamicEntity):
         self.screensize = screensize
 
         self.weaponimages = weaponimages
-        self.cooldown = 100
+        self.cooldown = 50
         self.shot_clock = 0
         self.attacking = False
         self.shoot = False

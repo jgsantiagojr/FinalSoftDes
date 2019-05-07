@@ -98,11 +98,11 @@ bigboi = Stage((10000,10200),
                 Platform(200, 1000, 4500, 8200),
                 Platform(200, 1000, 5000, 8000),
                 Platform(9900, 1000, 5000, 200)],
-                [StaticEnemy(550, 9500,StaticEnemyImages, BulletImages),
-                 StaticEnemy(650, 9500,StaticEnemyImages, BulletImages),
-                 StaticEnemy(750, 9500,StaticEnemyImages, BulletImages),
-                 StaticEnemy(850, 9500,StaticEnemyImages, BulletImages),
-                 StaticEnemy(950, 9500,StaticEnemyImages, BulletImages)])
+               [StaticEnemy(550, 9500,StaticEnemyImages, BulletImages),
+                StaticEnemy(650, 9500,StaticEnemyImages, BulletImages),
+                StaticEnemy(750, 9500,StaticEnemyImages, BulletImages),
+                StaticEnemy(850, 9500,StaticEnemyImages, BulletImages),
+                StaticEnemy(950, 9500,StaticEnemyImages, BulletImages)])
 
 realone = Stage((2460, 2160),
                 [Platform(120, 2400, 0, 2040),
@@ -123,42 +123,9 @@ realone = Stage((2460, 2160),
                  StaticEnemy(2340, 619,StaticEnemyImages, BulletImages),
                  StaticEnemy(900, 1999,StaticEnemyImages, BulletImages),
                  StaticEnemy(1500, 1999,StaticEnemyImages, BulletImages),
-                 StaticEnemy(2120, 1699,StaticEnemyImages, BulletImages)])
+                 StaticEnemy(2120, 1699,StaticEnemyImages, BulletImages)],
+                 exitpoint = Entity(284,191, ['fin.png']))
 
-pit1 = Stage(size,
-[Platform(40,size[0]/2,0,screenbottom),
-Platform(40,size[0]/2,1200,screenbottom)]
-)
-
-pit2 = Stage(size,
-[Platform(40,200,200,screenbottom),
-Platform(40,200,400,screenbottom),
-Platform(40,200,800,screenbottom)]
-)
-
-pit3 = Stage(size,
-[Platform(40,200,0,screenbottom),
-Platform(40,200,400,screenbottom-300),
-Platform(300,40,600,screenbottom-700),
-Platform(40,200,1000,screenbottom-700),
-Platform(100,40,600,screenbottom-900),
-Platform(600,40,1200,screenbottom-700),
-Platform(40,300,1200,screenbottom-200)]
-)
-
-ceiling1 = Stage(size,
-[Platform(40,200,0,screenbottom),
-Platform(800,1600,0,0),
-Platform(40,200,1600,screenbottom)]
-)
-
-ceiling2 = Stage(size,
-[Platform(40,200,0,screenbottom),
-Platform(400,1600,0,0),
-Platform(240,40,200,screenbottom-200),
-Platform(200,40,0,screenbottom-600),
-Platform(40,200,1600,screenbottom)]
-)
 
 class Camera(object):
     def __init__(self, centerx, centery, size):
@@ -208,7 +175,8 @@ class PlatformerModel(object):
         self.view_width = size[0]
         self.view_height = size[1]
         self.level = 0
-        self.stages = [realone, bigboi, ceiling2, pit1, pit3, ceiling1, pit2];
+        self.stages = [realone, bigboi];
+        self.stages[self.level].completed = False
         self.pictures = []
 
         self.dead = False
@@ -223,6 +191,8 @@ class PlatformerModel(object):
         for p in self.stages[self.level].platforms:
             self.platforms.add(p)
 
+        self.exitpoint = pygame.sprite.Group(self.stages[self.level].exitpoint)
+
         self.enemy_projectiles = pygame.sprite.Group()
 
         self.friendly_projectiles = pygame.sprite.Group()
@@ -233,6 +203,7 @@ class PlatformerModel(object):
 
     def reset(self):
         self.dead = False
+        self.stage().completed = False
         self.avatar = Avatar(400, 9000, AvatarImages, ShurikenImages, size)
         self.avatar_group = pygame.sprite.GroupSingle(self.avatar)
 
@@ -243,6 +214,8 @@ class PlatformerModel(object):
         self.platforms = pygame.sprite.Group()
         for p in self.stages[self.level].platforms:
             self.platforms.add(p)
+
+        self.exitpoint = pygame.sprite.Group(self.stages[self.level].exitpoint)
 
         self.enemy_projectiles = pygame.sprite.Group()
 
@@ -271,7 +244,7 @@ class PlatformerModel(object):
         self.dt = self.clock.get_time()
 
         if len(self.avatar.inputs)<1:
-            self.dt = self.dt*0.1
+            self.dt = self.dt*0.025
 
         #Update Avatar
         self.avatar.update(self.dt, self.stage(), self.friendly_projectiles)
@@ -292,10 +265,8 @@ class PlatformerModel(object):
 
         pygame.sprite.groupcollide(self.platforms, self.enemy_projectiles, False, True, collided = pygame.sprite.collide_rect_ratio(1))
 
-
-
-        if self.stages[self.level].completed:
-            level += 1
+        if pygame.sprite.groupcollide(self.avatar_group, self.exitpoint, False, True, collided = pygame.sprite.collide_rect_ratio(.75)):
+            self.stage().completed = True
 
 
         self.camera.update(self.avatar.x, self.avatar.y, self.stage())

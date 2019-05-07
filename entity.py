@@ -24,6 +24,7 @@ class Entity(pygame.sprite.Sprite):
 
         self.frame = 0
 
+        self.mask = self.masks[self.frame]
         self.rect = self.rects[self.frame]
 
         self.x = x
@@ -66,6 +67,7 @@ class Entity(pygame.sprite.Sprite):
     def update(self):
         self.rects[self.frame].center = (self.x, self.y)
         self.rect = self.rects[self.frame]
+        self.mask = self.masks[self.frame]
 
     def draw(self, camera, screen):
         """

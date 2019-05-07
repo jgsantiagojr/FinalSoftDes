@@ -11,7 +11,7 @@ class StaticEnemy(Entity):
 
         self.health = 1
         self.clock = 0
-        self.cooldown = 500
+        self.cooldown = 750
 
         self.handpos = Vector2(x, y)
         self.trajectory = Vector2(1,0)
