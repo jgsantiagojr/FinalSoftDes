@@ -9,6 +9,8 @@ A Dichotomic Escape Platformer Game with the following features:'
 - Formidable foes
 - A mix of combat and problem solving that will leave you speechless
 
+Meant to bring the user a great sense of fun, curiousity, and wonder. As well as question how much we can trust the world in front of us. 
+
 NECESSARY: PYGAME INSTALLED
 If you don't have pygame installed you can install it by following the directions below:
 
@@ -19,19 +21,30 @@ You also need to install the IDLE software. From the terminal, type in “sudo a
 Authors: Jamie Santiago, Skye Ozga, Jerry Goss, Mason Grabowski
 
 ### _How It Came To Be_
-Sometime around mid 2019, 4 engineering students came up with a crazy idea.... but before we go into that lets start at the beginning.
-Mason was born first in 1999, Jerry, Skye and Jamie came next, in that order. All four of them, grew up, not knowing each other, or the impact they would have on the world of PC gaming.
-As they grew up, living their individual stories, they developed a sense of self and personality, and despite various adversities, prospered until their tales met, at Olin College of Engineering. 
-In their Software Design class, second semester, they were tasked with a final project, it was completely open-ended and the world was their oyester. But they all knew what had to be done...... __a game__. A game better than any other game. 
-They knew they wanted to make a game, but they had to decide what kind. After some conversation, it was clear, the game would be a 2D Platformer and have some basis in the knew 
+Sometime around mid 2019, 4 engineering students came up with a crazy idea.... but before we go into that let's start at the beginning.
 
-TODO:
-INSERT DETAILS FOR DIFFERENT SECTIONS
-- Our Process
-- Aethestetic 
-- Enemies
-- Weapons
-- Engine
+Mason was born first in 1999, Jerry, Skye and Jamie came next, in that order. All four of them, grew up, not knowing each other, or the impact they would have on the world of PC gaming.
+As they grew up, living their individual stories, they developed a sense of self and personality, and despite various adversities, prospered until their tales met, at Olin College of Engineering.
+
+In their Software Design class, second semester, they were tasked with a final project, it was completely open-ended and the world was their oyster. But they all knew what had to be done...... __a game__. A game better than any other game.
+
+They knew they wanted to make a game, but they had to decide what kind. After some conversation, they figured 2 things out:
+- The game would be a 2D Platformer
+- The game would have the time flow mechanic of the PC Game SUPERHOT
+
+(Now, to clarify, the first game decision was made a month before the final project started, this gave Skye the opportunity to use their Mini-Project 4, the one directly before the final project, to develop a good basis for a game engine, which would make all of their lives much easier.)
+
+These 2 things were enough for them to get started, Skye on the engine and overarching structure, Jamie worked on weapons, Jerry on enemies, and Mason on graphics and animations. The game was afoot, and things were looking good.
+
+However road bumps were hit, due to other commitments Mason, and Skye were out of state for a week, they were busy in competitions they spent months preparing for. During this time Jamie and Jerry took a bit of a break from their technical parts, and used the first Architectural Review to get some consumer feedback. They asked their class what types of games they play and what they like to see in a game, as well as for any concerns or tips that came up. 
+
+After the return of Skye and Mason, they got back together to discuss what came up. And from this came up with the plot of the game:
+    __An escape game, where the user’s perception of reality is warped, and they must determine the truth__
+The existence of this thesis is what made it possible for Mason to really start specifying his graphics for the game, as well as gave all of them an image of what the game will look like in it’s end stages. 
+As all the pieces come together, the crew is sliding closer to the edge of their seats, overflowing with excitement to release this game, and see all of your reactions, so stay tuned!
+
+But to wet your whistle a bit, here are some testimonials from the crew about what they are most excited/proud of and a little teaser trailer, including a how-its-made doc.
+
 
 
 
