@@ -54,3 +54,10 @@ But to wet your whistle a bit, here are some testimonials from the crew about wh
 Hi I'm Jamie, and I can't wait for you all to play this game. I'm really excited about the plot, and aesthetics that Mason put together. I hope you guys enjoy it!
 
 Hello all, I'm Jerry! I can't wait to play our game and see others play it as well! I'm excited about seeing all the moving pieces of it regarding weapons and sprite motion and the general vibe the game stirs in a player (that isn't biased like me).
+
+What up guys, I'm Skye. I put my foot into this engine, I hope you guys enjoy it!
+
+I'm Mason, How's it going? Yoinkies, I spent so much time putting those images together. But it was all worth it for such a great game. 
+
+## CLICK THE LINK BELOW TO SEE A GLIMPSE OF WHAT THIS GAME WILL BE
+https://www.youtube.com/watch?v=4hecPuOQ-fM
