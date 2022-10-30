@@ -1,4 +1,4 @@
-from platform import Platform
+from platform2 import Platform
 from avatar import Avatar
 from stage import Stage
 from enemy import StaticEnemy

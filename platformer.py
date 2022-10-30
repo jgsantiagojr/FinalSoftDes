@@ -7,7 +7,7 @@ This is a platformer game based on keyboard contol for our Software Design proje
 
 import time
 import pygame, sys
-import avatar, platform, stage
+import avatar, platform2, stage
 from entity import Entity, DynamicEntity
 from model import PlatformerModel
 from view import PyGameWindowView
@@ -64,7 +64,7 @@ def start_game(size):
 
 
     pygame.quit()
-    sys.exit
+    sys.exit()
 
 if __name__ == '__main__':
     size = (1920, 1080)

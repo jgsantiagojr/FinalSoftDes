@@ -7,6 +7,7 @@ A Dichotomic Escape Platformer Game with the following features:'
 - Smooth engine written by our own Skye Ozga
 - Formidable foes
 
+Install everything in requirements.txt and run the platformer.py file. This will start pygame and you can start the game! This edit was made by jerry goss on archlinux, so some issues may arise... I HOPE NOT!!
 The core inspiration of our game was taken from the 9/10 rated game, SUPERHOT...
 
 "TIME ONLY MOVES WHEN YOU MOVE"
